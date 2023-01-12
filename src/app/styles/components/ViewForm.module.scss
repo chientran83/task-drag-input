@@ -1,0 +1,42 @@
+.viewForm {
+  padding: 5px;
+  border: 1px solid black;
+  padding-bottom: 100px;
+  height: 100%;
+  max-height: 630px;
+}
+.input {
+  &__item {
+    margin-bottom: 4px;
+    position: relative;
+  }
+  &__icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color:white;
+    border: 1px solid black;
+    padding: 3px;
+    border-radius:50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    & span {
+      background-color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    &:hover {
+      background-color:rgb(214, 211, 211);
+      & span {
+        background-color: rgb(214, 211, 211);
+      }
+    }
+  }
+  &__inner {
+    padding: 10px;
+    margin-bottom: 0px;
+  }
+}
