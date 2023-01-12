@@ -6,7 +6,7 @@ import { Controller } from "react-hook-form";
 type InputPropsUseForm = InputProps & {
   label?: string;
   name: string;
-  control: any;
+  control?: any;
   rules?: object;
   error?: any;
 };
@@ -21,7 +21,7 @@ const Input: FC<InputPropsUseForm> = ({
   ...prop
 }): ReactElement => {
   return (
-    <Form.Item label={label} style={{ margin: "20px 0" }}>
+    <Form.Item label={label}>
       <Controller
         rules={rules}
         name={name}

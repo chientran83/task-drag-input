@@ -1,20 +1,20 @@
 import { FC, ReactElement, useState } from "react";
-import { Segmented } from 'antd';
+import { Segmented } from "antd";
 
-const optionsSegmented:Array<string> = ['Attribute', 'Validate']
+const optionsSegmented: Array<string> = ["Attribute", "Validate"];
 
-const EditField:FC = ():ReactElement => {
-  const [segmented, setSegmented] = useState('Attribute')
+const EditField: FC = (): ReactElement => {
+  const [segmented, setSegmented] = useState("Attribute");
 
-  return(
+  return (
     <div className="edit-field">
       <Segmented
         options={optionsSegmented}
         value={segmented}
-        onChange={(value: any)=>setSegmented(value)}
+        onChange={(value: any) => setSegmented(value)}
       />
     </div>
-  )
-}
+  );
+};
 
 export default EditField;

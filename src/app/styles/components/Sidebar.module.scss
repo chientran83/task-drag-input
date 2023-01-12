@@ -1,0 +1,20 @@
+.sidebar {
+  width: 100%;
+  border: 1px solid black;
+  padding: 5px;
+  padding-bottom: 100px;
+  height: 100%;
+  max-height: 636px;
+  &__item {
+    width: 100%;
+    display: flex;
+    padding: 15px 30px;
+    align-items: center;
+    font-size: 20px;
+    border: 1px solid black;
+    margin-bottom: 5px;
+  }
+  &__icon {
+    margin-right: 15px;
+  }
+}
