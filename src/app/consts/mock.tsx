@@ -79,6 +79,12 @@ const mock: MockType = {
         },
       ],
     },
+    {
+      id: "4",
+      name: "confirm",
+      type: "checkbox",
+      label: "do you agree?",
+    },
   ],
 };
 

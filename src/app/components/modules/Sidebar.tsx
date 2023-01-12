@@ -4,14 +4,16 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 
 import styles from "app/styles/components/Sidebar.module.scss";
 import { SidebarType } from "app/consts/types";
+
 const cx = classNames.bind(styles);
+
 const Sidebar: React.FC<{ sidebarList: SidebarType[] }> = ({
   sidebarList,
 }): React.ReactElement => {
   return (
     <div className={cx("sidebar")}>
       <Droppable droppableId="sidebar">
-        {(provided, snapshot) => (
+        {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {sidebarList?.map<React.ReactElement>((sidebarItem, index) => {
               return (
@@ -20,7 +22,7 @@ const Sidebar: React.FC<{ sidebarList: SidebarType[] }> = ({
                   index={index}
                   key={sidebarItem.id}
                 >
-                  {(provided, snapshot) => (
+                  {(provided) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}

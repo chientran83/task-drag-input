@@ -1,10 +1,9 @@
-import React from "react";
 export type SidebarType = {
   id: string;
   name: string;
-  icon? : any
+  icon?: any;
 };
-type SelectOption = {
+export type SelectOption = {
   value: string;
   label: string;
 };
@@ -24,4 +23,5 @@ export type InputType = {
 export type MockType = {
   sidebar: SidebarType[];
   viewForm: InputType[];
+  optionsSelectEditInput?: SelectOption[];
 };

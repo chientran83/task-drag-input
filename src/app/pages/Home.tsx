@@ -7,10 +7,13 @@ import Sidebar from "app/components/modules/Sidebar";
 import mock from "app/consts/mock";
 import ViewForm from "app/components/modules/ViewForm";
 import { InputType, SidebarType } from "app/consts/types";
+import EditField from "app/components/modules/EditField";
 
 const cx = classNames.bind(styles);
 const Home: React.FC = (): React.ReactElement => {
-  const [sidebarList, setSidebarList] = React.useState<SidebarType[]>(mock.sidebar);
+  const [sidebarList, setSidebarList] = React.useState<SidebarType[]>(
+    mock.sidebar
+  );
   const [inputList, setInputList] = React.useState<InputType[]>(mock.viewForm);
   const [updatedItem, setUpdatedItem] = React.useState<InputType>();
 
@@ -39,7 +42,9 @@ const Home: React.FC = (): React.ReactElement => {
     inputList: InputType[];
   }): void => {
     let inputData = [...inputList];
-    const dataAfterDelete = inputData.filter(input => input.id !== updatedItemId);
+    const dataAfterDelete = inputData.filter(
+      (input) => input.id !== updatedItemId
+    );
     setInputList(dataAfterDelete);
   };
 
@@ -60,7 +65,6 @@ const Home: React.FC = (): React.ReactElement => {
   ): InputType[] => {
     let initState = [...state];
     const [movedItem] = initState.splice(originalPosition, 1);
-    console.log(destinationId);
     initState.splice(destinationId, 0, movedItem);
     return initState;
   };
@@ -82,6 +86,7 @@ const Home: React.FC = (): React.ReactElement => {
         const generateElement: InputType = {
           id: `${inputList.length}`,
           type: draggableId,
+          label : "label"
         };
         const valueAfterReOrder: InputType[] = handleReOrderOtherArea(
           inputList,
@@ -104,7 +109,9 @@ const Home: React.FC = (): React.ReactElement => {
           <ViewForm inputList={inputList} setUpdatedItem={setUpdatedItem} />
         </div>
       </DragDropContext>
-      <div className={cx("edit-fied")}></div>
+      <div className={cx("edit-fied")}>
+        <EditField />
+      </div>
     </div>
   );
 };
