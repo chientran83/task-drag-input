@@ -1,18 +1,18 @@
 import { CheckboxProps } from "antd";
 import { FC, ReactElement } from "react";
 import { Checkbox as CheckboxAntd } from "antd";
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 type CheckboxPropsUseForm = CheckboxProps & {
   name: string;
-  control: any;
+  control: Control;
   rules?: object;
-  labal: string;
+  label: string;
 };
 
 const Checkbox: FC<CheckboxPropsUseForm> = ({
   name,
-  labal,
+  label,
   control,
   ...prop
 }): ReactElement => {
@@ -21,7 +21,7 @@ const Checkbox: FC<CheckboxPropsUseForm> = ({
       name={name}
       render={({ field }) => (
         <CheckboxAntd {...field} {...prop}>
-          {labal}
+          {label}
         </CheckboxAntd>
       )}
       control={control}

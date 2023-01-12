@@ -22,4 +22,5 @@ export type MockType = {
   sidebar: SidebarElementType[];
   viewForm: InputType[];
   optionsSelectEditInput: SelectOption[];
+  optionsRadioEditInput: SelectOption[];
 };

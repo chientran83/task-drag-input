@@ -37,8 +37,27 @@ const mock: MockType = {
       label: "Password",
     },
   ],
+  optionsRadioEditInput: [
+    {
+      value: "sdt",
+      label: "Phone Number",
+    },
+    {
+      value: "password",
+      label: "Password",
+    },
+    {
+      value: "email",
+      label: "Email",
+    },
+  ],
 };
 
-export const { optionsSelectEditInput, viewForm, sidebar } = mock;
+export const {
+  optionsSelectEditInput,
+  viewForm,
+  sidebar,
+  optionsRadioEditInput,
+} = mock;
 
 export default mock;

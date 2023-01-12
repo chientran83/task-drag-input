@@ -1,13 +1,13 @@
 import { Form, RadioProps } from "antd";
 import { FC, ReactElement } from "react";
 import { Radio as RadioAntd } from "antd";
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import { SelectOption } from "app/consts/types";
 
 type RadioPropsUseForm = RadioProps & {
   label?: string;
   name: string;
-  control: any;
+  control: Control;
   rules?: object;
   options?: SelectOption[];
 };

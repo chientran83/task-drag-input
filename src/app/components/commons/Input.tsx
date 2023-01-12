@@ -1,14 +1,14 @@
 import { Form, InputProps, Typography } from "antd";
 import { FC, ReactElement } from "react";
 import { Input as InputAntd } from "antd";
-import { Controller } from "react-hook-form";
+import { Control, Controller, ErrorOption } from "react-hook-form";
 
 type InputPropsUseForm = InputProps & {
   label?: string;
   name: string;
-  control: any;
+  control: Control;
   rules?: object;
-  error?: any;
+  error?: ErrorOption;
 };
 const { Text } = Typography;
 
@@ -21,7 +21,7 @@ const Input: FC<InputPropsUseForm> = ({
   ...prop
 }): ReactElement => {
   return (
-    <Form.Item label={label} style={{ margin: "20px 0" }}>
+    <Form.Item label={label}>
       <Controller
         rules={rules}
         name={name}
