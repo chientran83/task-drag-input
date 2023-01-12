@@ -86,7 +86,7 @@ const Home: React.FC = (): React.ReactElement => {
         const generateElement: InputType = {
           id: `${inputList.length}`,
           type: draggableId,
-          label : "label"
+          label: "label",
         };
         const valueAfterReOrder: InputType[] = handleReOrderOtherArea(
           inputList,
@@ -106,7 +106,11 @@ const Home: React.FC = (): React.ReactElement => {
           <Sidebar sidebarList={sidebarList} />
         </div>
         <div className={cx("view-from")}>
-          <ViewForm inputList={inputList} setUpdatedItem={setUpdatedItem} />
+          <ViewForm
+            inputList={inputList}
+            setUpdatedItem={setUpdatedItem}
+            updatedItem={updatedItem}
+          />
         </div>
       </DragDropContext>
       <div className={cx("edit-fied")}>
