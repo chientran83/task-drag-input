@@ -7,12 +7,12 @@ type CheckboxPropsUseForm = CheckboxProps & {
   name: string;
   control: any;
   rules?: object;
-  textChild: string;
+  labal: string;
 };
 
 const Checkbox: FC<CheckboxPropsUseForm> = ({
   name,
-  textChild,
+  labal,
   control,
   ...prop
 }): ReactElement => {
@@ -21,7 +21,7 @@ const Checkbox: FC<CheckboxPropsUseForm> = ({
       name={name}
       render={({ field }) => (
         <CheckboxAntd {...field} {...prop}>
-          {textChild}
+          {labal}
         </CheckboxAntd>
       )}
       control={control}
