@@ -1,0 +1,45 @@
+.edit-select {
+  table {
+    margin-bottom: 10px;
+    width: 100%;
+    tr {
+      th {
+        text-align: center;
+        &:nth-child(1) {
+          width: 25%;
+        }
+        &:nth-child(2) {
+          width: 75%;
+        }
+      }
+      td {
+        input {
+          width: 100%;
+          border: unset;
+          outline: unset;
+          background-color: rgb(220, 216, 216);
+          line-height: 30px;
+          padding: 0 10px;
+        }
+        &:nth-child(1) {
+          width: 25%;
+        }
+        &:nth-child(2) {
+          width: 75%;
+        }
+        &:nth-child(3) {
+          cursor: pointer;
+          color: red;
+          width: 30px;
+        }
+      }
+      .add-option {
+        cursor: pointer;
+        color: rgb(72, 139, 215);
+      }
+    }
+  }
+  .btn-submit {
+    margin-top: 10px;
+  }
+}

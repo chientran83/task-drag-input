@@ -1,11 +1,11 @@
 import { CheckboxProps } from "antd";
 import { FC, ReactElement } from "react";
 import { Checkbox as CheckboxAntd } from "antd";
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 type CheckboxPropsUseForm = CheckboxProps & {
   name: string;
-  control: any;
+  control: Control;
   rules?: object;
   label: string;
 };
