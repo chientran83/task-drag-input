@@ -8,7 +8,6 @@ import { InputType, typeEditField } from "app/consts/types";
 const EditField: FC<typeEditField> = ({
   handleUpdateInput,
   updatedItem,
-  inputList,
 }): ReactElement => {
   const [segmented, setSegmented] = useState("Attribute");
 
@@ -19,7 +18,6 @@ const EditField: FC<typeEditField> = ({
           <EditInput
             segmented={segmented}
             handleUpdateInput={handleUpdateInput}
-            inputList={inputList}
             updatedItem={updatedItem}
           />
         );

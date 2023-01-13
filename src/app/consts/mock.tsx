@@ -88,16 +88,16 @@ const mock: MockType = {
   ],
   optionsSelectEditInput: [
     {
-      value: "1",
+      value: "text",
       label: "Text",
     },
     {
-      value: "2",
-      label: "Number",
+      value: "number",
+      label: "number",
     },
     {
-      value: "3",
-      label: "Password",
+      value: "password",
+      label: "password",
     },
   ],
   optionsRadioEditInput: [

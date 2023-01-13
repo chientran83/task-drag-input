@@ -15,7 +15,6 @@ type typeInput = typeEditField & {
 const EditInput: FC<typeInput> = ({
   handleUpdateInput,
   updatedItem,
-  inputList,
   segmented,
 }): ReactElement => {
   const {
@@ -27,23 +26,16 @@ const EditInput: FC<typeInput> = ({
     mode: "onBlur",
   });
 
-  useEffect(() => {
-    watch(({ value, type, placeholder, disabled, validate }) => {
-      console.log(typeof updatedItem?.id, inputList, {
-        ...updatedItem,
-        placeholder: placeholder,
-      });
+  const handleChangeInput = (value: string, name: string) => {
+    setValue(name, value);
 
-      handleUpdateInput({
-        updateItemId: updatedItem?.id,
-        inputList,
-        data: {
-          ...updatedItem,
-          placeholder: placeholder,
-        },
-      });
+    console.log(updatedItem);
+
+    handleUpdateInput({
+      ...updatedItem,
+      [name]: value,
     });
-  }, [watch]);
+  };
 
   return (
     <div className="edit-input">
@@ -54,12 +46,13 @@ const EditInput: FC<typeInput> = ({
             name="value"
             label="Value"
             defaultValue={updatedItem.value}
-            rules={{
-              pattern: {
-                value: /^john$/,
-                message: "firstName is invalid",
-              },
-            }}
+            onChange={(e) => handleChangeInput(e.target.value, "value")}
+            // rules={{
+            //   pattern: {
+            //     value: /^john$/,
+            //     message: "firstName is invalid",
+            //   },
+            // }}
             control={control}
           />
           <Input
@@ -67,6 +60,7 @@ const EditInput: FC<typeInput> = ({
             defaultValue={updatedItem.placeholder}
             name="placeholder"
             label="Placeholder"
+            onChange={(e) => handleChangeInput(e.target.value, "placeholder")}
             // rules={{
             //   pattern: {
             //     value: /^john$/,
@@ -79,12 +73,9 @@ const EditInput: FC<typeInput> = ({
             name="type"
             label="type"
             placeholder="Select input type"
-            defaultValue={[
-              {
-                value: "text",
-                label: "text",
-              },
-            ]}
+            onChange={(value) => {
+              handleChangeInput(value, "type");
+            }}
             control={control}
             options={optionsSelectEditInput}
           />

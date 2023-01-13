@@ -7,6 +7,30 @@ export type SelectOption = {
   value: string;
   label: string;
 };
+type RulesType = {
+  required?: {
+    value: boolean;
+  };
+  min?: {
+    value: number;
+  };
+  max?: {
+    value: number;
+  };
+  minLength?: {
+    value: number;
+  };
+  maxLength?: {
+    value: number;
+  };
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+  validate?: {
+    value: Function | Object;
+  };
+};
 export type InputType = {
   id: string;
   name?: string;
@@ -18,6 +42,7 @@ export type InputType = {
   selected?: boolean;
   options?: SelectOption[];
   label?: string;
+  rules?: RulesType;
 };
 
 export type MockType = {
@@ -29,5 +54,4 @@ export type MockType = {
 export type typeEditField = {
   handleUpdateInput: Function;
   updatedItem: InputType | undefined;
-  inputList: InputType[];
 };

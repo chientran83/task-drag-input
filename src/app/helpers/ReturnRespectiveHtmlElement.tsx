@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { Control,FieldError } from "react-hook-form";
+import { Control, FieldError, MultipleFieldErrors } from "react-hook-form";
 
 import { InputType } from "app/consts/types";
 import Input from "app/components/commons/Input";
@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 const ReturnRespectiveHtmlElement: React.FC<{
   input: InputType;
   control: Control;
-  errors?: FieldError | any;
+  errors?: any;
 }> = ({ input, control, errors }): React.ReactElement => {
   switch (input.type) {
     case "number":
@@ -26,8 +26,9 @@ const ReturnRespectiveHtmlElement: React.FC<{
           error={errors[`${input.name}`]}
           control={control}
           className={cx("input__inner")}
-          placeholder="Basic usage"
+          placeholder={input.placeholder}
           type={input.type}
+          rules={input.rules}
         />
       );
     case "radio":
