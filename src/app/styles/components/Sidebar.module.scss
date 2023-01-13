@@ -6,6 +6,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  &__input {
+    display: none;
+  }
   &__list {
     width: 100%;
     border: 1px solid black;

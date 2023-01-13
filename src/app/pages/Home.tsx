@@ -92,13 +92,14 @@ const Home: React.FC = (): React.ReactElement => {
     <div className={cx("container")}>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={cx("side-bar")}>
-          <Sidebar sidebarList={sidebarList} />
+          <Sidebar sidebarList={sidebarList} setInputList={setInputList} />
         </div>
         <div className={cx("view-from")}>
           <ViewForm
             inputList={inputList}
             setUpdatedItem={setUpdatedItem}
             updatedItem={updatedItem}
+            handleUpdateInput={handleUpdateInput}
           />
         </div>
       </DragDropContext>
