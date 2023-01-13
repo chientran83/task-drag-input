@@ -2,8 +2,9 @@ import { FC, ReactElement, useState } from "react";
 import { Segmented } from "antd";
 import EditInput from "./EditInput";
 import EditSelect from "./EditSelect";
-import EditRadioAndCheckbox from "./EditRadioAndCheckbox";
+import EditRadioAndCheckbox from "./EditCheckbox";
 import { InputType, typeEditField } from "app/consts/types";
+import EditCheckbox from "./EditCheckbox";
 
 const EditField: FC<typeEditField> = ({
   handleUpdateInput,
@@ -13,6 +14,9 @@ const EditField: FC<typeEditField> = ({
 
   const renderComponentActive = (type: string | undefined) => {
     switch (type) {
+      case "number":
+      case "password":
+      case "email":
       case "text":
         return (
           <EditInput
@@ -22,11 +26,26 @@ const EditField: FC<typeEditField> = ({
           />
         );
       case "radio":
-        return <EditSelect />;
+        return (
+          <EditSelect
+            handleUpdateInput={handleUpdateInput}
+            updatedItem={updatedItem}
+          />
+        );
       case "checkbox":
-        return <></>;
+        return (
+          <EditCheckbox
+            handleUpdateInput={handleUpdateInput}
+            updatedItem={updatedItem}
+          />
+        );
       case "select":
-        return <EditSelect />;
+        return (
+          <EditSelect
+            handleUpdateInput={handleUpdateInput}
+            updatedItem={updatedItem}
+          />
+        );
       default:
         break;
     }
@@ -37,7 +56,9 @@ const EditField: FC<typeEditField> = ({
       {updatedItem?.type && (
         <Segmented
           options={
-            updatedItem?.type === "text"
+            updatedItem?.type === "text" ||
+            updatedItem?.type === "number" ||
+            updatedItem?.type === "password"
               ? ["Attribute", "Validate"]
               : ["Attribute"]
           }

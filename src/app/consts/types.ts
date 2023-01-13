@@ -10,18 +10,23 @@ export type SelectOption = {
 type RulesType = {
   required?: {
     value: boolean;
+    message: string;
   };
   min?: {
     value: number;
+    message: string;
   };
   max?: {
     value: number;
+    message: string;
   };
   minLength?: {
     value: number;
+    message: string;
   };
   maxLength?: {
     value: number;
+    message: string;
   };
   pattern?: {
     value: RegExp;
@@ -50,6 +55,7 @@ export type MockType = {
   viewForm: InputType[];
   optionsSelectEditInput: SelectOption[];
   optionsRadioEditInput: SelectOption[];
+  optionsRadioValidateNumber: SelectOption[];
 };
 export type typeEditField = {
   handleUpdateInput: Function;

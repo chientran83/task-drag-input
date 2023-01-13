@@ -36,6 +36,12 @@ const mock: MockType = {
       type: "text",
       label: "Your email",
       placeholder: "please inter placeholder !",
+      rules: {
+        required: {
+          value: true,
+          message: "Please enter email !",
+        },
+      },
     },
     {
       id: "1",
@@ -99,19 +105,26 @@ const mock: MockType = {
       value: "password",
       label: "password",
     },
+    {
+      value: "email",
+      label: "email",
+    },
   ],
   optionsRadioEditInput: [
     {
-      value: "sdt",
-      label: "Phone Number",
-    },
-    {
       value: "password",
-      label: "Password",
+      label: "Minimum eight characters, at least one letter and one number",
     },
     {
-      value: "email",
-      label: "Email",
+      value: "password1",
+      label:
+        "Minimum eight characters, at least one letter, one number and one special character",
+    },
+  ],
+  optionsRadioValidateNumber: [
+    {
+      value: "sdt",
+      label: "Format phone number vietnames",
     },
   ],
 };
@@ -121,6 +134,7 @@ export const {
   viewForm,
   sidebar,
   optionsRadioEditInput,
+  optionsRadioValidateNumber,
 } = mock;
 
 export default mock;

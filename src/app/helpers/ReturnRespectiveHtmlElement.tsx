@@ -25,10 +25,12 @@ const ReturnRespectiveHtmlElement: React.FC<{
           name={`${input.name}`}
           error={errors[`${input.name}`]}
           control={control}
+          value={input.value}
           className={cx("input__inner")}
           placeholder={input.placeholder}
           type={input.type}
           rules={input.rules}
+          disabled={input.disabled}
         />
       );
     case "radio":
@@ -39,6 +41,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           type={input.type}
+          value={input.value}
           options={input.options}
         />
       );
@@ -50,6 +53,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           options={input.options}
+          value={input.value}
         />
       );
     case "checkbox":
@@ -59,6 +63,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           name={`${input.name}`}
           control={control}
           className={cx("input__inner")}
+          value={input.value}
         />
       );
     default:

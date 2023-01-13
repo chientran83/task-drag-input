@@ -4,17 +4,20 @@ import Checkbox from "app/components/commons/Checkbox";
 import { DeleteFilled } from "@ant-design/icons";
 import { Button, Form } from "antd";
 import "app/styles/components/EditSelect.scss";
-import { SelectOption } from "app/consts/types";
+import { SelectOption, typeEditField } from "app/consts/types";
 import Input from "app/components/commons/Input";
 
 type editSelectOption = SelectOption & {
   id: number;
 };
 
-const EditSelect: FC = (): ReactElement => {
-  const [options, setOptions] = useState<editSelectOption[]>([
-    { value: "1", label: "aaaaa", id: 1 },
-  ]);
+const EditSelect: FC<typeEditField> = ({
+  handleUpdateInput,
+  updatedItem,
+}): ReactElement => {
+  const [options, setOptions] = useState<editSelectOption[]>(
+    updatedItem?.options?.map((item, index) => ({ ...item, id: index })) || []
+  );
 
   const {
     control,
@@ -54,7 +57,11 @@ const EditSelect: FC = (): ReactElement => {
   };
 
   const onSubmitFrom = (data: object): void => {
-    console.log(data);
+    const coverOptions = options.map((item) => ({
+      value: item.value,
+      label: item.label,
+    }));
+    handleUpdateInput({ ...updatedItem, ...data, options: coverOptions });
   };
 
   return (
@@ -102,6 +109,7 @@ const EditSelect: FC = (): ReactElement => {
         <Input
           name="label"
           label="Label"
+          defaultValue={updatedItem?.label}
           control={control}
           placeholder="Enter label"
         />
@@ -110,6 +118,7 @@ const EditSelect: FC = (): ReactElement => {
           name="disabled"
           label="Disabled"
           control={control}
+          defaultChecked={updatedItem?.checked}
           checked={watch("disabled")}
           onChange={() => {
             setValue("disabled", !watch("disabled"));
