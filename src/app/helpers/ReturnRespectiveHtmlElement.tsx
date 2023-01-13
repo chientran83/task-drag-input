@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { Control, FieldError, MultipleFieldErrors } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 import { InputType } from "app/consts/types";
 import Input from "app/components/commons/Input";
@@ -13,8 +13,18 @@ const ReturnRespectiveHtmlElement: React.FC<{
   input: InputType;
   control: Control;
   errors?: any;
-}> = ({ input, control, errors }): React.ReactElement => {
+  handleUpdateInput: Function;
+}> = ({ input, control, errors, handleUpdateInput }): React.ReactElement => {
+  const handleOnChangeValue : Function = (value: string) : void => {
+    let updatedInput: InputType = { ...input };
+    updatedInput.value = value;
+    handleUpdateInput(updatedInput);
+  };
+
   switch (input.type) {
+    case "number":
+    case "password":
+    case "email":
     case "text":
       return (
         <Input
@@ -27,6 +37,8 @@ const ReturnRespectiveHtmlElement: React.FC<{
           placeholder={input.placeholder}
           type={input.type}
           rules={input.rules}
+          onChange={(e) => handleOnChangeValue(e.target.value)}
+          disabled={input.disabled}
         />
       );
     case "radio":
@@ -39,6 +51,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           type={input.type}
           value={input.value}
           options={input.options}
+          disabled={input.disabled}
         />
       );
     case "select":
@@ -50,6 +63,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           className={cx("input__inner")}
           options={input.options}
           value={input.value}
+          disabled={input.disabled}
         />
       );
     case "checkbox":
@@ -60,6 +74,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           value={input.value}
+          disabled={input.disabled}
         />
       );
     default:
