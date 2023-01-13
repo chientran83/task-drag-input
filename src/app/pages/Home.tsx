@@ -23,6 +23,7 @@ const Home: React.FC = (): React.ReactElement => {
       (input) => input.id === updatedItem?.id
     );
     inputData[itemIndex] = data;
+    setUpdatedItem(data)
     setInputList(inputData);
   };
 
