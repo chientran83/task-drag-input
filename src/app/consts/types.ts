@@ -10,25 +10,30 @@ export type SelectOption = {
 type RulesType = {
   required?: {
     value: boolean;
+    message: string;
   };
   min?: {
     value: number;
+    message: string;
   };
   max?: {
     value: number;
+    message: string;
   };
   minLength?: {
     value: number;
+    message: string;
   };
   maxLength?: {
     value: number;
+    message: string;
   };
   pattern?: {
     value: RegExp;
-    message : string;
+    message: string;
   };
   validate?: {
-    value: Function | Object
+    value: Function | Object;
   };
 };
 export type InputType = {

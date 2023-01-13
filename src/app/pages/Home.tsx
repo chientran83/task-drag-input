@@ -20,7 +20,7 @@ const Home: React.FC = (): React.ReactElement => {
   const handleUpdateInput: Function = (data: InputType): void => {
     let inputData = [...inputList];
     const itemIndex = inputList.findIndex(
-      (input) => input.id === `${updatedItem}`
+      (input) => input.id === updatedItem?.id
     );
     inputData[itemIndex] = data;
     setInputList(inputData);
@@ -29,7 +29,7 @@ const Home: React.FC = (): React.ReactElement => {
   const handleDeleteInput: Function = (): void => {
     let inputData = [...inputList];
     const dataAfterDelete = inputData.filter(
-      (input) => input.id !== `${updatedItem}`
+      (input) => input.id !== updatedItem?.id
     );
     setInputList(dataAfterDelete);
   };

@@ -26,7 +26,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           error={errors[`${input.name}`]}
           control={control}
           className={cx("input__inner")}
-          placeholder="Basic usage"
+          placeholder={input.placeholder}
           type={input.type}
           rules={input.rules}
         />
