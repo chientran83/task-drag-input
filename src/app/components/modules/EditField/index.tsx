@@ -3,20 +3,51 @@ import { Segmented } from "antd";
 import EditInput from "./EditInput";
 import EditSelect from "./EditSelect";
 import EditRadioAndCheckbox from "./EditRadioAndCheckbox";
+import { InputType, typeEditField } from "app/consts/types";
 
-const optionsSegmented: Array<string> = ["Attribute", "Validate"];
-
-const EditField: FC = (): ReactElement => {
+const EditField: FC<typeEditField> = ({
+  handleUpdateInput,
+  updatedItem,
+  inputList,
+}): ReactElement => {
   const [segmented, setSegmented] = useState("Attribute");
+
+  const renderComponentActive = (type: string | undefined) => {
+    switch (type) {
+      case "text":
+        return (
+          <EditInput
+            segmented={segmented}
+            handleUpdateInput={handleUpdateInput}
+            inputList={inputList}
+            updatedItem={updatedItem}
+          />
+        );
+      case "radio":
+        return <EditSelect />;
+      case "checkbox":
+        return <></>;
+      case "select":
+        return <EditSelect />;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="edit-field">
-      <Segmented
-        options={optionsSegmented}
-        value={segmented}
-        onChange={(value: any) => setSegmented(value)}
-      />
-      <EditRadioAndCheckbox />
+      {updatedItem?.type && (
+        <Segmented
+          options={
+            updatedItem?.type === "text"
+              ? ["Attribute", "Validate"]
+              : ["Attribute"]
+          }
+          value={segmented}
+          onChange={(value: any) => setSegmented(value)}
+        />
+      )}
+      {renderComponentActive(updatedItem?.type)}
     </div>
   );
 };

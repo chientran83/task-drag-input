@@ -6,8 +6,18 @@ import Select from "app/components/commons/Select";
 import Checkbox from "app/components/commons/Checkbox";
 import { Form } from "antd";
 import Radio from "app/components/commons/Radio";
+import { typeEditField } from "app/consts/types";
 
-const EditInput: FC<{ segmented: string }> = ({ segmented }): ReactElement => {
+type typeInput = typeEditField & {
+  segmented: string;
+};
+
+const EditInput: FC<typeInput> = ({
+  handleUpdateInput,
+  updatedItem,
+  inputList,
+  segmented,
+}): ReactElement => {
   const {
     control,
     watch,
@@ -18,19 +28,32 @@ const EditInput: FC<{ segmented: string }> = ({ segmented }): ReactElement => {
   });
 
   useEffect(() => {
-    watch(({ value, type, disabled, validate }) =>
-      console.log(value, type, disabled, validate)
-    );
+    watch(({ value, type, placeholder, disabled, validate }) => {
+      console.log(typeof updatedItem?.id, inputList, {
+        ...updatedItem,
+        placeholder: placeholder,
+      });
+
+      handleUpdateInput({
+        updateItemId: updatedItem?.id,
+        inputList,
+        data: {
+          ...updatedItem,
+          placeholder: placeholder,
+        },
+      });
+    });
   }, [watch]);
 
   return (
     <div className="edit-input">
-      {segmented === "Attribute" ? (
+      {updatedItem && segmented === "Attribute" ? (
         <Form>
           <Input
             error={errors.value}
             name="value"
             label="Value"
+            defaultValue={updatedItem.value}
             rules={{
               pattern: {
                 value: /^john$/,
@@ -41,14 +64,15 @@ const EditInput: FC<{ segmented: string }> = ({ segmented }): ReactElement => {
           />
           <Input
             error={errors.placeholder}
+            defaultValue={updatedItem.placeholder}
             name="placeholder"
             label="Placeholder"
-            rules={{
-              pattern: {
-                value: /^john$/,
-                message: "firstName is invalid",
-              },
-            }}
+            // rules={{
+            //   pattern: {
+            //     value: /^john$/,
+            //     message: "firstName is invalid",
+            //   },
+            // }}
             control={control}
           />
           <Select

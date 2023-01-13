@@ -99,7 +99,12 @@ const EditSelect: FC = (): ReactElement => {
           </tbody>
         </table>
 
-        <Input name="label" control={control} placeholder="Enter label" />
+        <Input
+          name="label"
+          label="Label"
+          control={control}
+          placeholder="Enter label"
+        />
 
         <Checkbox
           name="disabled"

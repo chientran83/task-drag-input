@@ -1,13 +1,15 @@
-export type SidebarElementType = {
+export type SidebarType = {
   id: string;
   name: string;
+  icon?: any;
 };
 export type SelectOption = {
   value: string;
   label: string;
 };
 export type InputType = {
-  name: string;
+  id: string;
+  name?: string;
   placeholder?: string;
   type?: string;
   value?: string;
@@ -19,8 +21,13 @@ export type InputType = {
 };
 
 export type MockType = {
-  sidebar: SidebarElementType[];
+  sidebar: SidebarType[];
   viewForm: InputType[];
   optionsSelectEditInput: SelectOption[];
   optionsRadioEditInput: SelectOption[];
+};
+export type typeEditField = {
+  handleUpdateInput: Function;
+  updatedItem: InputType | undefined;
+  inputList: InputType[];
 };
