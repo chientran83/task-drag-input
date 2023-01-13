@@ -1,10 +1,22 @@
 .sidebar {
   width: 100%;
-  border: 1px solid black;
-  padding: 5px;
-  padding-bottom: 100px;
-  height: 100%;
   max-height: 636px;
+  // padding-bottom: 100px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__list {
+    width: 100%;
+    border: 1px solid black;
+    padding: 5px;
+    flex: 1;
+  }
+  &__button {
+    padding: 30px 0px 30px 0px;
+    display: flex;
+    justify-content: space-around;
+  }
   &__item {
     width: 100%;
     display: flex;

@@ -13,7 +13,8 @@ const cx = classNames.bind(styles);
 const ViewForm: React.FC<{
   inputList: InputType[];
   setUpdatedItem: React.Dispatch<React.SetStateAction<InputType | undefined>>;
-}> = ({ inputList, setUpdatedItem }): React.ReactElement => {
+  updatedItem: InputType | undefined;
+}> = ({ inputList, setUpdatedItem, updatedItem }): React.ReactElement => {
   const {
     control,
     handleSubmit,
@@ -42,7 +43,11 @@ const ViewForm: React.FC<{
                     key={inputItem.id}
                   >
                     {(provided) => (
-                      <div className={cx("input__item")}>
+                      <div
+                        className={cx("input__item", {
+                          input__active: updatedItem?.id === inputItem.id,
+                        })}
+                      >
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}

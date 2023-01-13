@@ -18,32 +18,23 @@ const Home: React.FC = (): React.ReactElement => {
   const [updatedItem, setUpdatedItem] = React.useState<InputType>();
 
   const handleUpdateInput: Function = ({
-    updatedItemId,
-    inputList,
     data,
   }: {
-    updatedItemId: string;
     inputList: InputType[];
     data: InputType;
   }): void => {
     let inputData = [...inputList];
     const itemIndex = inputList.findIndex(
-      (input) => input.id === updatedItemId
+      (input) => input.id === `${updatedItem}`
     );
     inputData[itemIndex] = data;
     setInputList(inputData);
   };
 
-  const handleDeleteInput: Function = ({
-    updatedItemId,
-    inputList,
-  }: {
-    updatedItemId: string;
-    inputList: InputType[];
-  }): void => {
+  const handleDeleteInput: Function = (): void => {
     let inputData = [...inputList];
     const dataAfterDelete = inputData.filter(
-      (input) => input.id !== updatedItemId
+      (input) => input.id !== `${updatedItem}`
     );
     setInputList(dataAfterDelete);
   };
@@ -86,7 +77,7 @@ const Home: React.FC = (): React.ReactElement => {
         const generateElement: InputType = {
           id: `${inputList.length}`,
           type: draggableId,
-          label : "label"
+          label: "label",
         };
         const valueAfterReOrder: InputType[] = handleReOrderOtherArea(
           inputList,
@@ -106,7 +97,11 @@ const Home: React.FC = (): React.ReactElement => {
           <Sidebar sidebarList={sidebarList} />
         </div>
         <div className={cx("view-from")}>
-          <ViewForm inputList={inputList} setUpdatedItem={setUpdatedItem} />
+          <ViewForm
+            inputList={inputList}
+            setUpdatedItem={setUpdatedItem}
+            updatedItem={updatedItem}
+          />
         </div>
       </DragDropContext>
       <div className={cx("edit-fied")}>
