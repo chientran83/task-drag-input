@@ -36,6 +36,12 @@ const mock: MockType = {
       type: "text",
       label: "Your email",
       placeholder: "please inter placeholder !",
+      rules : {
+        required : {
+          value: true,
+          message: "Please enter email !"
+        }
+      }
     },
     {
       id: "1",
