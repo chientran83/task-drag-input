@@ -15,7 +15,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
   errors?: any;
   handleUpdateInput: Function;
 }> = ({ input, control, errors, handleUpdateInput }): React.ReactElement => {
-  const handleOnChangeValue : Function = (value: string) : void => {
+  const handleOnChangeValue: Function = (value: string): void => {
     let updatedInput: InputType = { ...input };
     updatedInput.value = value;
     handleUpdateInput(updatedInput);

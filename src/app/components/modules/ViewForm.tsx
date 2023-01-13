@@ -37,10 +37,10 @@ const ViewForm: React.FC<{
 
   return (
     <div className={cx("viewForm")}>
-      <form>
+      <form className={cx("viewForm__form")}>
         <Droppable droppableId="viewForm">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div ref={provided.innerRef} {...provided.droppableProps} className={cx("viewForm__list")}>
               {inputList.map((inputItem, index) => {
                 return (
                   <Draggable

@@ -3,14 +3,33 @@ import classNames from "classnames/bind";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 import styles from "app/styles/components/Sidebar.module.scss";
-import { SidebarType } from "app/consts/types";
+import { InputType, SidebarType } from "app/consts/types";
 import { Button } from "antd";
 
 const cx = classNames.bind(styles);
+const Sidebar: React.FC<{
+  sidebarList: SidebarType[];
+  setInputList: React.Dispatch<React.SetStateAction<InputType[]>>;
+}> = ({ sidebarList, setInputList }): React.ReactElement => {
+  const jsonInput = React.useRef<HTMLInputElement | any>(null);
+  const handleOnClickImport = (): void => {
+    jsonInput.current?.click();
+  };
+  const handleOnclickExport = (): void => {
+    
+  };
 
-const Sidebar: React.FC<{ sidebarList: SidebarType[] }> = ({
-  sidebarList,
-}): React.ReactElement => {
+  function onReaderLoad(event: any) {
+    var obj = JSON.parse(event.target.result);
+    setInputList(obj.data);
+  }
+
+  const handleChangeInputFile = (): void => {
+    var reader = new FileReader();
+    reader.onload = onReaderLoad;
+    reader.readAsText(jsonInput.current.files[0]);
+  };
+
   return (
     <div className={cx("sidebar")}>
       <div className={cx("sidebar__list")}>
@@ -52,8 +71,14 @@ const Sidebar: React.FC<{ sidebarList: SidebarType[] }> = ({
         </Droppable>
       </div>
       <div className={cx("sidebar__button")}>
-        <Button>Import</Button>
-        <Button>Export</Button>
+        <input
+          type="file"
+          ref={jsonInput}
+          className={cx("sidebar__input")}
+          onChange={() => handleChangeInputFile()}
+        />
+        <Button onClick={() => handleOnClickImport()}>Import</Button>
+        <Button onClick={() => handleOnclickExport()}>Export</Button>
       </div>
     </div>
   );
