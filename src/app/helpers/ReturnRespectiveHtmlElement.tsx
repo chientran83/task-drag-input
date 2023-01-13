@@ -15,9 +15,6 @@ const ReturnRespectiveHtmlElement: React.FC<{
   errors?: any;
 }> = ({ input, control, errors }): React.ReactElement => {
   switch (input.type) {
-    case "number":
-    case "password":
-    case "email":
     case "text":
       return (
         <Input
@@ -25,6 +22,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           name={`${input.name}`}
           error={errors[`${input.name}`]}
           control={control}
+          value={input.value}
           className={cx("input__inner")}
           placeholder={input.placeholder}
           type={input.type}
@@ -39,6 +37,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           type={input.type}
+          value={input.value}
           options={input.options}
         />
       );
@@ -50,6 +49,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           options={input.options}
+          value={input.value}
         />
       );
     case "checkbox":
@@ -59,6 +59,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           name={`${input.name}`}
           control={control}
           className={cx("input__inner")}
+          value={input.value}
         />
       );
     default:
