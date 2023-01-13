@@ -14,7 +14,13 @@ const ViewForm: React.FC<{
   inputList: InputType[];
   setUpdatedItem: React.Dispatch<React.SetStateAction<InputType | undefined>>;
   updatedItem: InputType | undefined;
-}> = ({ inputList, setUpdatedItem, updatedItem }): React.ReactElement => {
+  handleUpdateInput: Function;
+}> = ({
+  inputList,
+  setUpdatedItem,
+  updatedItem,
+  handleUpdateInput,
+}): React.ReactElement => {
   const {
     control,
     handleSubmit,
@@ -57,6 +63,7 @@ const ViewForm: React.FC<{
                             input: inputItem,
                             control,
                             errors,
+                            handleUpdateInput,
                           })}
                           <div
                             className={cx("input__icon")}

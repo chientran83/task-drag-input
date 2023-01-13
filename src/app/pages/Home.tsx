@@ -23,7 +23,7 @@ const Home: React.FC = (): React.ReactElement => {
       (input) => input.id === updatedItem?.id
     );
     inputData[itemIndex] = data;
-    setUpdatedItem(data)
+    setUpdatedItem(data);
     setInputList(inputData);
   };
 
@@ -97,6 +97,7 @@ const Home: React.FC = (): React.ReactElement => {
             inputList={inputList}
             setUpdatedItem={setUpdatedItem}
             updatedItem={updatedItem}
+            handleUpdateInput={handleUpdateInput}
           />
         </div>
       </DragDropContext>
