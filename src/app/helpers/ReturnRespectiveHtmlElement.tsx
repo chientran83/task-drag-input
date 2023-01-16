@@ -7,6 +7,9 @@ import Radio from "app/components/commons/Radio";
 import Select from "app/components/commons/Select";
 import Checkbox from "app/components/commons/Checkbox";
 import styles from "app/styles/components/ViewForm.module.scss";
+import DateInput from "app/components/commons/DateInput";
+import FileInput from "app/components/commons/FileInput";
+import React from "react";
 
 const cx = classNames.bind(styles);
 const ReturnRespectiveHtmlElement: React.FC<{
@@ -14,9 +17,18 @@ const ReturnRespectiveHtmlElement: React.FC<{
   control: Control;
   errors?: any;
   handleUpdateInput: Function;
-}> = ({ input, control, errors, handleUpdateInput }): React.ReactElement => {
-  const handleOnChangeValue: Function = (value: string): void => {
+  setValue: any;
+}> = ({
+  input,
+  control,
+  errors,
+  handleUpdateInput,
+  setValue,
+}): React.ReactElement => {
+  const handleOnChangeValue: Function = async (value: string, name: string) => {
+    console.log(value);
     let updatedInput: InputType = { ...input };
+    setValue(name, value);
     updatedInput.value = value;
     handleUpdateInput(updatedInput);
   };
@@ -28,17 +40,17 @@ const ReturnRespectiveHtmlElement: React.FC<{
     case "text":
       return (
         <Input
-          label={input.label}
-          name={`${input.name}`}
           error={errors[`${input.name}`]}
-          control={control}
+          name={`${input.name}`}
+          label={input.label}
           value={input.value}
+          disabled={input.disabled}
+          rules={input.rules}
+          type={input.type}
+          control={control}
           className={cx("input__inner")}
           placeholder={input.placeholder}
-          type={input.type}
-          rules={input.rules}
-          onChange={(e) => handleOnChangeValue(e.target.value)}
-          disabled={input.disabled}
+          onChange={(e: any) => handleOnChangeValue(e.target.value, input.name)}
         />
       );
     case "radio":
@@ -52,6 +64,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           value={input.value}
           options={input.options}
           disabled={input.disabled}
+          onChange={(e) => handleOnChangeValue(e.target.value, input.name)}
         />
       );
     case "select":
@@ -62,8 +75,9 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           options={input.options}
-          value={input.value}
+          defaultValue={input.value}
           disabled={input.disabled}
+          onChange={(value) => handleOnChangeValue(value, input.name)}
         />
       );
     case "checkbox":
@@ -75,6 +89,30 @@ const ReturnRespectiveHtmlElement: React.FC<{
           className={cx("input__inner")}
           value={input.value}
           disabled={input.disabled}
+          onChange={(e) => handleOnChangeValue(e.target.checked, input.name)}
+        />
+      );
+    case "date":
+      return (
+        <DateInput
+          label={`${input.label}`}
+          name={`${input.name}`}
+          control={control}
+          className={cx("input__inner")}
+          value={input.value}
+          disabled={input.disabled}
+          onChange={(value) => handleOnChangeValue(value)}
+        />
+      );
+    case "file":
+      return (
+        <FileInput
+          label={`${input.label}`}
+          name={`${input.name}`}
+          control={control}
+          className={cx("input__inner")}
+          disabled={input.disabled}
+          onChange={(value) => handleOnChangeValue(value)}
         />
       );
     default:

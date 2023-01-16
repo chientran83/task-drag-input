@@ -4,6 +4,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import { ToolOutlined } from "@ant-design/icons";
 import { useForm } from "react-hook-form";
 import { Button } from "antd";
+import dayjs from "dayjs";
 
 import styles from "app/styles/components/ViewForm.module.scss";
 import { InputType } from "app/consts/types";
@@ -24,14 +25,23 @@ const ViewForm: React.FC<{
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onBlur",
+  });
+
+  const handleActiveInput = (e: any, inputItem: any) => {
+    e.target.getElementsByTagName("input")[0].focus();
+    setUpdatedItem(inputItem);
+  };
 
   const handleClickEditButon = (inputItem: InputType): void => {
     setUpdatedItem(inputItem);
   };
 
   const onSubmit = (data: any) => {
+    console.log(dayjs(data.dateOfBirth).format("YYYY/MM/DD"));
     alert(JSON.stringify(data));
   };
 
@@ -40,7 +50,11 @@ const ViewForm: React.FC<{
       <form className={cx("viewForm__form")}>
         <Droppable droppableId="viewForm">
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={cx("viewForm__list")}>
+            <div
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              className={cx("viewForm__list")}
+            >
               {inputList.map((inputItem, index) => {
                 return (
                   <Draggable
@@ -53,6 +67,9 @@ const ViewForm: React.FC<{
                         className={cx("input__item", {
                           input__active: updatedItem?.id === inputItem.id,
                         })}
+                        onMouseEnter={(e: any) =>
+                          handleActiveInput(e, inputItem)
+                        }
                       >
                         <div
                           ref={provided.innerRef}
@@ -64,6 +81,7 @@ const ViewForm: React.FC<{
                             control,
                             errors,
                             handleUpdateInput,
+                            setValue,
                           })}
                           <div
                             className={cx("input__icon")}

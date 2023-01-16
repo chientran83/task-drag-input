@@ -41,13 +41,12 @@ export type InputType = {
   name?: string;
   placeholder?: string;
   type?: string;
-  value?: string;
+  value?: any;
   disabled?: boolean;
-  checked?: boolean;
-  selected?: boolean;
   options?: SelectOption[];
   label?: string;
   rules?: RulesType;
+  defaultValue?: string | number;
 };
 
 export type MockType = {
