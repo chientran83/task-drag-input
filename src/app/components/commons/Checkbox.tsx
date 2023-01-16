@@ -8,19 +8,21 @@ type CheckboxPropsUseForm = CheckboxProps & {
   control: any;
   rules?: object;
   label: string;
+  value?: boolean;
 };
 
 const Checkbox: FC<CheckboxPropsUseForm> = ({
   name,
   label,
   control,
+  value,
   ...prop
 }): ReactElement => {
   return (
     <Controller
       name={name}
       render={({ field }) => (
-        <CheckboxAntd {...field} {...prop}>
+        <CheckboxAntd {...field} {...prop} checked={value}>
           {label}
         </CheckboxAntd>
       )}

@@ -15,9 +15,7 @@ const Sidebar: React.FC<{
   const handleOnClickImport = (): void => {
     jsonInput.current?.click();
   };
-  const handleOnclickExport = (): void => {
-    
-  };
+  const handleOnclickExport = (): void => {};
 
   function onReaderLoad(event: any) {
     var obj = JSON.parse(event.target.result);
