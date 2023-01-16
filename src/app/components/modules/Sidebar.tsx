@@ -15,7 +15,16 @@ const Sidebar: React.FC<{
   const handleOnClickImport = (): void => {
     jsonInput.current?.click();
   };
-  const handleOnclickExport = (): void => {};
+  const handleOnclickExport = (): void => {
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      JSON.stringify(sidebarList)
+    )}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    link.download = "data.json";
+
+    link.click();
+  };
 
   function onReaderLoad(event: any) {
     var obj = JSON.parse(event.target.result);

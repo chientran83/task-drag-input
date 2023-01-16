@@ -52,5 +52,11 @@ export type InputType = {
 export type MockType = {
   sidebar: SidebarType[];
   viewForm: InputType[];
-  optionsSelectEditInput?: SelectOption[];
+  optionsSelectEditInput: SelectOption[];
+  optionsRadioEditInput: SelectOption[];
+  optionsRadioValidateNumber: SelectOption[];
+};
+export type typeEditField = {
+  handleUpdateInput: Function;
+  updatedItem: InputType | undefined;
 };

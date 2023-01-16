@@ -27,6 +27,8 @@ const Home: React.FC = (): React.ReactElement => {
     setInputList(inputData);
   };
 
+  console.log(inputList);
+
   const handleDeleteInput: Function = (): void => {
     let inputData = [...inputList];
     const dataAfterDelete = inputData.filter(
@@ -102,7 +104,10 @@ const Home: React.FC = (): React.ReactElement => {
         </div>
       </DragDropContext>
       <div className={cx("edit-fied")}>
-        <EditField />
+        <EditField
+          handleUpdateInput={handleUpdateInput}
+          updatedItem={updatedItem}
+        />
       </div>
     </div>
   );

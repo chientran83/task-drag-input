@@ -137,6 +137,49 @@ const mock: MockType = {
       disabled: false,
     },
   ],
+  optionsSelectEditInput: [
+    {
+      value: "text",
+      label: "Text",
+    },
+    {
+      value: "number",
+      label: "number",
+    },
+    {
+      value: "password",
+      label: "password",
+    },
+    {
+      value: "email",
+      label: "email",
+    },
+  ],
+  optionsRadioEditInput: [
+    {
+      value: "password",
+      label: "Minimum eight characters, at least one letter and one number",
+    },
+    {
+      value: "password1",
+      label:
+        "Minimum eight characters, at least one letter, one number and one special character",
+    },
+  ],
+  optionsRadioValidateNumber: [
+    {
+      value: "sdt",
+      label: "Format phone number vietnames",
+    },
+  ]
 };
+
+export const {
+  optionsSelectEditInput,
+  viewForm,
+  sidebar,
+  optionsRadioEditInput,
+  optionsRadioValidateNumber,
+} = mock;
 
 export default mock;
