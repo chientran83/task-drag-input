@@ -37,7 +37,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           placeholder={input.placeholder}
           type={input.type}
           rules={input.rules}
-          onChange={(e) => handleOnChangeValue(e.target.value)}
+          // onChange={(e) => handleOnChangeValue(e.target.value)}
           disabled={input.disabled}
         />
       );
@@ -75,6 +75,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           className={cx("input__inner")}
           value={input.value}
           disabled={input.disabled}
+          checked={input.checked}
         />
       );
     default:

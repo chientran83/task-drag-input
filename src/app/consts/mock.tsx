@@ -49,6 +49,10 @@ const mock: MockType = {
   ],
   optionsRadioEditInput: [
     {
+      value: "none",
+      label: "Default",
+    },
+    {
       value: "password",
       label: "Minimum eight characters, at least one letter and one number",
     },
@@ -59,6 +63,10 @@ const mock: MockType = {
     },
   ],
   optionsRadioValidateNumber: [
+    {
+      value: "none",
+      label: "Default",
+    },
     {
       value: "sdt",
       label: "Format phone number vietnames",

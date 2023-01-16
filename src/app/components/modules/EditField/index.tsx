@@ -1,14 +1,15 @@
 import { FC, ReactElement, useState } from "react";
-import { Segmented } from "antd";
+import { Button, Segmented } from "antd";
 import EditInput from "./EditInput";
 import EditSelect from "./EditSelect";
 import EditRadioAndCheckbox from "./EditCheckbox";
 import { InputType, typeEditField } from "app/consts/types";
 import EditCheckbox from "./EditCheckbox";
 
-const EditField: FC<typeEditField> = ({
+const EditField: FC<typeEditField & { handleDeleteInput: Function }> = ({
   handleUpdateInput,
   updatedItem,
+  handleDeleteInput,
 }): ReactElement => {
   const [segmented, setSegmented] = useState("Attribute");
 
@@ -67,6 +68,18 @@ const EditField: FC<typeEditField> = ({
         />
       )}
       {renderComponentActive(updatedItem?.type)}
+      {updatedItem && (
+        <Button
+          style={{
+            marginTop: "20px",
+          }}
+          type="primary"
+          danger
+          onClick={() => handleDeleteInput()}
+        >
+          Delete Element
+        </Button>
+      )}
     </div>
   );
 };

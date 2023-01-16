@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Checkbox from "app/components/commons/Checkbox";
 import { DeleteFilled } from "@ant-design/icons";
@@ -29,6 +29,13 @@ const EditSelect: FC<typeEditField> = ({
     mode: "onBlur",
   });
 
+  useEffect(() => {
+    setOptions(
+      updatedItem?.options?.map((item, index) => ({ ...item, id: index })) || []
+    );
+    setValue("label", updatedItem?.label);
+    setValue("disabled", updatedItem?.disabled);
+  }, [updatedItem]);
   const handleOptionSelect: Function = (
     value: string,
     index: number,

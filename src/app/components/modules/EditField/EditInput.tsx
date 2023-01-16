@@ -89,6 +89,12 @@ const EditInput: FC<typeInput> = ({
           },
         });
         break;
+      case "none":
+        handleUpdateInput({
+          ...updatedItem,
+          rules: {},
+        });
+        break;
       default:
         break;
     }
@@ -111,7 +117,7 @@ const EditInput: FC<typeInput> = ({
           />
           <Input
             error={errors.placeholder}
-            defaultValue={updatedItem.placeholder}
+            value={updatedItem.placeholder}
             name="placeholder"
             label="Placeholder"
             onChange={(e) => handleChangeInput(e.target.value, "placeholder")}

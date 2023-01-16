@@ -30,15 +30,25 @@ const EditCheckbox: FC<typeEditField> = ({
     });
   };
 
+  const handleChangeInput = (value: string, name: string) => {
+    setValue(name, value);
+
+    handleUpdateInput({
+      ...updatedItem,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="edit-radio-and-checkbox">
       <Form>
         <Input
           name="label"
           label="Label"
-          defaultValue={updatedItem?.label}
+          value={updatedItem?.label}
           control={control}
           placeholder="Enter label"
+          onChange={(e) => handleChangeInput(e.target.value, "label")}
         />
 
         <Checkbox
