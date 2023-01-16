@@ -140,7 +140,7 @@ const EditInput: FC<typeInput> = ({
             name="disabled"
             label="Disabled"
             control={control}
-            checked={updatedItem.disabled}
+            value={updatedItem.disabled}
             onChange={(e) => handleChangeCheckbox(e, "disabled")}
           />
         </Form>

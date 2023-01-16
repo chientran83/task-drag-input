@@ -36,6 +36,7 @@ const EditSelect: FC<typeEditField> = ({
     setValue("label", updatedItem?.label);
     setValue("disabled", updatedItem?.disabled);
   }, [updatedItem]);
+
   const handleOptionSelect: Function = (
     value: string,
     index: number,
@@ -64,7 +65,9 @@ const EditSelect: FC<typeEditField> = ({
   };
 
   const onSubmitFrom = (data: object): void => {
-    const coverOptions = options.map((item) => ({
+    const filterOptions = options.filter((item) => item.value && item.label);
+
+    const coverOptions = filterOptions.map((item) => ({
       value: item.value,
       label: item.label,
     }));
@@ -125,8 +128,7 @@ const EditSelect: FC<typeEditField> = ({
           name="disabled"
           label="Disabled"
           control={control}
-          defaultChecked={updatedItem?.checked}
-          checked={watch("disabled")}
+          value={watch("disabled")}
           onChange={() => {
             setValue("disabled", !watch("disabled"));
           }}

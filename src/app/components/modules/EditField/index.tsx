@@ -33,6 +33,8 @@ const EditField: FC<typeEditField & { handleDeleteInput: Function }> = ({
             updatedItem={updatedItem}
           />
         );
+      case "date":
+      case "file":
       case "checkbox":
         return (
           <EditCheckbox

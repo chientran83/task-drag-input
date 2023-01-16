@@ -52,18 +52,10 @@ const EditCheckbox: FC<typeEditField> = ({
         />
 
         <Checkbox
-          name="checked"
-          label="Checked"
-          control={control}
-          checked={updatedItem?.checked}
-          onChange={(e) => handleChangeCheckbox(e, "checked")}
-        />
-
-        <Checkbox
           name="disabled"
           label="Disabled"
           control={control}
-          checked={updatedItem?.disabled}
+          value={updatedItem?.disabled}
           onChange={(e) => handleChangeCheckbox(e, "disabled")}
         />
       </Form>
