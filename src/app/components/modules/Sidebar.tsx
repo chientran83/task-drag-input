@@ -9,15 +9,16 @@ import { Button } from "antd";
 const cx = classNames.bind(styles);
 const Sidebar: React.FC<{
   sidebarList: SidebarType[];
+  inputList: InputType[];
   setInputList: React.Dispatch<React.SetStateAction<InputType[]>>;
-}> = ({ sidebarList, setInputList }): React.ReactElement => {
+}> = ({ sidebarList, inputList, setInputList }): React.ReactElement => {
   const jsonInput = React.useRef<HTMLInputElement | any>(null);
   const handleOnClickImport = (): void => {
     jsonInput.current?.click();
   };
   const handleOnclickExport = (): void => {
     const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-      JSON.stringify(sidebarList)
+      JSON.stringify(inputList)
     )}`;
     const link = document.createElement("a");
     link.href = jsonString;

@@ -49,10 +49,10 @@ const ReturnRespectiveHtmlElement: React.FC<{
           value={input.value}
           disabled={input.disabled}
           rules={input.rules}
-          type={input.type}
           control={control}
           className={cx("input__inner")}
           placeholder={input.placeholder}
+          type={input.type}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleOnChangeValue(e.target.value, input.name)
           }
@@ -110,7 +110,9 @@ const ReturnRespectiveHtmlElement: React.FC<{
           className={cx("input__inner")}
           value={input.value}
           disabled={input.disabled}
-          onChange={(value: Dayjs | null) => handleOnChangeValue(value)}
+          onChange={(value: Dayjs | null) =>
+            handleOnChangeValue(value, input.name)
+          }
         />
       );
     case "file":
@@ -121,9 +123,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           disabled={input.disabled}
-          onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
-            handleOnChangeValue(value)
-          }
+          onChange={(value: any) => handleOnChangeValue(value, input.name)}
         />
       );
     default:
