@@ -1,19 +1,21 @@
-import { Form, InputProps } from "antd";
+import { Form, UploadProps } from "antd";
 import { FC, ReactElement } from "react";
 import { Button, Upload } from "antd";
 import { Controller } from "react-hook-form";
 import { UploadOutlined } from "@ant-design/icons";
 
-type FileInputType = InputProps & {
+type FileInputType = UploadProps & {
   label?: string;
   name: string;
   control?: any;
+  disabled?: boolean;
 };
 
 const FileInput: FC<FileInputType> = ({
   label,
   name,
   control,
+  disabled,
   ...prop
 }): ReactElement => {
   return (
@@ -21,8 +23,10 @@ const FileInput: FC<FileInputType> = ({
       <Controller
         name={name}
         render={({ field }) => (
-          <Upload {...field}>
-            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          <Upload {...field} {...prop}>
+            <Button disabled={disabled} icon={<UploadOutlined />}>
+              Click to Upload
+            </Button>
           </Upload>
         )}
         control={control}

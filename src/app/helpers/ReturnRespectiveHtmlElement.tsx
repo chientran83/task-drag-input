@@ -46,10 +46,11 @@ const ReturnRespectiveHtmlElement: React.FC<{
           value={input.value}
           disabled={input.disabled}
           rules={input.rules}
-          type={input.type}
           control={control}
           className={cx("input__inner")}
           placeholder={input.placeholder}
+          type={input.type}
+          // onChange={(e) => handleOnChangeValue(e.target.value)}
           onChange={(e: any) => handleOnChangeValue(e.target.value, input.name)}
         />
       );

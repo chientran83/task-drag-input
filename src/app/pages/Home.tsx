@@ -27,14 +27,13 @@ const Home: React.FC = (): React.ReactElement => {
     setInputList(inputData);
   };
 
-  console.log(inputList);
-
   const handleDeleteInput: Function = (): void => {
     let inputData = [...inputList];
     const dataAfterDelete = inputData.filter(
       (input) => input.id !== updatedItem?.id
     );
     setInputList(dataAfterDelete);
+    setUpdatedItem(undefined);
   };
 
   const handleReOrderOtherArea: Function = (
@@ -92,7 +91,11 @@ const Home: React.FC = (): React.ReactElement => {
     <div className={cx("container")}>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={cx("side-bar")}>
-          <Sidebar sidebarList={sidebarList} setInputList={setInputList} />
+          <Sidebar
+            inputList={inputList}
+            sidebarList={sidebarList}
+            setInputList={setInputList}
+          />
         </div>
         <div className={cx("view-from")}>
           <ViewForm
@@ -107,6 +110,7 @@ const Home: React.FC = (): React.ReactElement => {
         <EditField
           handleUpdateInput={handleUpdateInput}
           updatedItem={updatedItem}
+          handleDeleteInput={handleDeleteInput}
         />
       </div>
     </div>
