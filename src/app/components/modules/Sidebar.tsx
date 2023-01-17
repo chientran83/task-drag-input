@@ -26,7 +26,7 @@ const Sidebar: React.FC<{
     link.click();
   };
 
-  function onReaderLoad(event: any) {
+  function onReaderLoad(event : any) {
     var obj = JSON.parse(event.target.result);
     setInputList(obj.data);
   }

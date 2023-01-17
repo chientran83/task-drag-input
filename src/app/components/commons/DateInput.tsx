@@ -2,14 +2,13 @@ import React from "react";
 import { Form, DatePicker, Typography, DatePickerProps } from "antd";
 import { Controller } from "react-hook-form";
 import dayjs from "dayjs";
-import type { RangePickerProps } from "antd/es/date-picker";
 
 type DateInputType = DatePickerProps & {
-  control: any;
   name: string;
   label?: string;
+  value?: string;
+  control: any;
   error?: any;
-  value?: any;
 };
 
 const { Text } = Typography;

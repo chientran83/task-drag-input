@@ -31,7 +31,10 @@ const ViewForm: React.FC<{
     mode: "onBlur",
   });
 
-  const handleActiveInput = (e: any, inputItem: any) => {
+  const handleActiveInput = (
+    e: React.ChangeEvent<HTMLDivElement>,
+    inputItem: InputType
+  ) => {
     e.target.getElementsByTagName("input")[0].focus();
     setUpdatedItem(inputItem);
   };
@@ -41,7 +44,6 @@ const ViewForm: React.FC<{
   };
 
   const onSubmit = (data: any) => {
-    console.log(dayjs(data.dateOfBirth).format("YYYY/MM/DD"));
     alert(JSON.stringify(data));
   };
 
