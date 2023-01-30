@@ -27,20 +27,27 @@ const ViewForm: React.FC<{
     handleSubmit,
     setValue,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "onBlur",
-    defaultValues: (() => {
-      let datass = {};
-      inputList.forEach((item) => {
-        if (item.type === "date") {
-          datass = { ...datass, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
-        } else {
-          datass = { ...datass, [item.name]: item.value };
-        }
-      });
-      return datass;
-    })(),
   });
+
+  const resetAsyncForm = async () => {
+    let inputs = {};
+    await inputList.forEach((item) => {
+      if (item.type === "date") {
+        inputs = { ...inputs, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
+      } else {
+        inputs = { ...inputs, [item.name]: item.value };
+      }
+    });
+    reset(inputs);
+  };
+
+  React.useEffect(() => {
+    resetAsyncForm();
+  }, [inputList]);
+
   const handleActiveInput = (
     e: React.ChangeEvent<HTMLDivElement>,
     inputItem: InputType
