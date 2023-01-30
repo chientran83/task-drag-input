@@ -61,7 +61,6 @@ const ViewForm: React.FC<{
   };
 
   const onSubmit = (data: any) => {
-    console.log(data);
     alert(JSON.stringify(data));
   };
 

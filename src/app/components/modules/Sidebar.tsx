@@ -29,13 +29,14 @@ const Sidebar: React.FC<{
 
   function onReaderLoad(event : any) {
     var obj = JSON.parse(event.target.result);
-    setInputList(obj.data);
+    setInputList(obj);
   }
 
   const handleChangeInputFile = (): void => {
     var reader = new FileReader();
     reader.onload = onReaderLoad;
     reader.readAsText(jsonInput.current.files[0]);
+    jsonInput.current.value = "";
   };
 
   return (
