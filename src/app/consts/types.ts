@@ -38,7 +38,7 @@ type RulesType = {
 };
 export type InputType = {
   id: string;
-  name?: string;
+  name: string;
   placeholder?: string;
   type?: string;
   value?: any;

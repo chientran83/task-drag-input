@@ -29,9 +29,22 @@ const ViewForm: React.FC<{
     formState: { errors },
   } = useForm({
     mode: "onBlur",
+    defaultValues: (() => {
+      let datass = {};
+      inputList.forEach((item) => {
+        if (item.type === "date") {
+          datass = { ...datass, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
+        } else {
+          datass = { ...datass, [item.name]: item.value };
+        }
+      });
+      return datass;
+    })(),
   });
-
-  const handleActiveInput = (e: any, inputItem: any) => {
+  const handleActiveInput = (
+    e: React.ChangeEvent<HTMLDivElement>,
+    inputItem: InputType
+  ) => {
     e.target.getElementsByTagName("input")[0].focus();
     setUpdatedItem(inputItem);
   };
@@ -41,7 +54,7 @@ const ViewForm: React.FC<{
   };
 
   const onSubmit = (data: any) => {
-    console.log(dayjs(data.dateOfBirth).format("YYYY/MM/DD"));
+    console.log(data);
     alert(JSON.stringify(data));
   };
 
