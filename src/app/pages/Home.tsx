@@ -73,6 +73,7 @@ const Home: React.FC = (): React.ReactElement => {
         //handle when drag from sibar to viewForm
         const generateElement: InputType = {
           id: `${inputList.length}`,
+          name: `${inputList.length}`,
           type: draggableId,
           label: "label",
         };

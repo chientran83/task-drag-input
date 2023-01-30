@@ -29,8 +29,18 @@ const ViewForm: React.FC<{
     formState: { errors },
   } = useForm({
     mode: "onBlur",
+    defaultValues: (() => {
+      let datass = {};
+      inputList.forEach((item) => {
+        if (item.type === "date") {
+          datass = { ...datass, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
+        } else {
+          datass = { ...datass, [item.name]: item.value };
+        }
+      });
+      return datass;
+    })(),
   });
-
   const handleActiveInput = (
     e: React.ChangeEvent<HTMLDivElement>,
     inputItem: InputType
@@ -44,7 +54,7 @@ const ViewForm: React.FC<{
   };
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.log(data);
     alert(JSON.stringify(data));
   };
 

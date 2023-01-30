@@ -18,7 +18,7 @@ import type { Dayjs } from "dayjs";
 const cx = classNames.bind(styles);
 const ReturnRespectiveHtmlElement: React.FC<{
   input: InputType;
-  control: Control;
+  control: Control | any;
   errors?: any;
   handleUpdateInput: Function;
   setValue: any;
