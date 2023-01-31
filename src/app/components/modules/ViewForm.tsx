@@ -15,22 +15,22 @@ const ViewForm: React.FC<{
   inputList: InputType[];
   updatedItem: InputType | undefined;
   handleUpdateInput: Function;
-  handleActiveInput: any;
+  handleActiveInput: Function;
 }> = ({
   inputList,
   updatedItem,
   handleUpdateInput,
   handleActiveInput,
 }): React.ReactElement => {
-    const {
-      control,
-      handleSubmit,
-      setValue,
-      formState: { errors },
-      reset,
-    } = useForm({
-      mode: "onBlur",
-    });
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: "onBlur"
+  });
 
     const resetAsyncForm = async () => {
       let inputs = {};
@@ -48,69 +48,77 @@ const ViewForm: React.FC<{
       resetAsyncForm();
     }, [inputList]);
 
-    const onSubmit = (data: any) => {
-      alert(JSON.stringify(data));
-    };
+  const onSubmit = (data: any) => {
+    alert(JSON.stringify(data));
+  };
 
-    return (
-      <div className={cx("viewForm")}>
-        <form className={cx("viewForm__form")}>
-          <Droppable droppableId="viewForm">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className={cx("viewForm__list")}
-              >
-                {inputList.map((inputItem, index) => {
-                  return (
-                    <Draggable
-                      draggableId={inputItem.id}
-                      index={index}
-                      key={inputItem.id}
-                    >
-                      {(provided) => (
+  const getDraggableItemStyle = (isDragging: boolean, draggableStyle: any) => ({
+    background: isDragging && "#B2F5EA",
+    ...draggableStyle,
+  });
+
+  return (
+    <div className={cx("viewForm")}>
+      <form className={cx("viewForm__form")}>
+        <Droppable droppableId="viewForm">
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              className={cx("viewForm__list")}
+            >
+              {inputList.map((inputItem, index) => {
+                return (
+                  <Draggable
+                    draggableId={inputItem.id}
+                    index={index}
+                    key={inputItem.id}
+                  >
+                    {(provided, snapshot) => {
+                      return (
                         <div
                           className={cx("input__item", {
                             input__active: updatedItem?.id === inputItem.id,
                           })}
                           onClick={() => handleActiveInput(inputItem)}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getDraggableItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
                         >
+                          {ReturnRespectiveHtmlElement({
+                            input: inputItem,
+                            control,
+                            errors,
+                            handleUpdateInput,
+                            setValue,
+                            handleActiveInput,
+                            updatedItem,
+                          })}
                           <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
+                            className={cx("input__icon")}
+                            onClick={() => handleActiveInput(inputItem)}
                           >
-                            {ReturnRespectiveHtmlElement({
-                              input: inputItem,
-                              control,
-                              errors,
-                              handleUpdateInput,
-                              setValue,
-                              handleActiveInput,
-                              updatedItem,
-                            })}
-                            <div
-                              className={cx("input__icon")}
-                              onClick={() => handleActiveInput(inputItem)}
-                            >
-                              <ToolOutlined />
-                            </div>
+                            <ToolOutlined />
                           </div>
                         </div>
-                      )}
-                    </Draggable>
-                  );
-                })}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-          {!!inputList.length && (
-            <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+                      );
+                    }}
+                  </Draggable>
+                );
+              })}
+              {provided.placeholder}
+            </div>
           )}
-        </form>
-      </div>
-    );
-  };
+        </Droppable>
+        {!!inputList.length && (
+          <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+        )}
+      </form>
+    </div>
+  );
+};
 export default ViewForm;

@@ -50,10 +50,10 @@ const mock: MockType = {
       placeholder: "please inter placeholder !",
       value: "chientran@gmail.com",
       rules: {
-        // required : {
-        //   value: true,
-        //   message: "Please enter email !"
-        // }
+        required : {
+          value: true,
+          message: "Please enter email !"
+        }
       },
     },
     // {

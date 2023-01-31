@@ -19,12 +19,12 @@ import CheckBoxGroup from "app/components/commons/CheckBoxGroup";
 const cx = classNames.bind(styles);
 const ReturnRespectiveHtmlElement: React.FC<{
   input: InputType;
-  control: Control | any;
+  control: Control;
   errors?: any;
   handleUpdateInput: Function;
-  setValue: any;
-  handleActiveInput: any;
-  updatedItem: any;
+  setValue: (name: string, value: unknown, config?: Object) => void;
+  handleActiveInput: Function;
+  updatedItem: InputType | undefined;
 }> = ({
   input,
   control,
@@ -34,18 +34,18 @@ const ReturnRespectiveHtmlElement: React.FC<{
   handleActiveInput,
   updatedItem,
 }): React.ReactElement => {
-    const handleOnChangeValue: Function = async (
-      value: string,
-      inputItem: any
-    ) => {
-      if (updatedItem?.id !== inputItem.id) {
-        handleActiveInput(inputItem);
-      }
-      let updatedInput: InputType = { ...inputItem };
-      updatedInput.value = value;
-      handleUpdateInput(updatedInput, inputItem.id);
-      setValue(inputItem.name, value);
-    };
+  const handleOnChangeValue: Function = async (
+    value: string,
+    inputItem: InputType
+  ) => {
+    if (updatedItem?.id !== inputItem.id) {
+      handleActiveInput(inputItem);
+    }
+    let updatedInput: InputType = { ...inputItem };
+    updatedInput.value = value;
+    handleUpdateInput(updatedInput, inputItem.id);
+    setValue(inputItem.name, value);
+  };
 
     switch (input.type) {
       case "number":
