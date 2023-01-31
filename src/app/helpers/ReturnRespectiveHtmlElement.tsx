@@ -18,12 +18,12 @@ import type { Dayjs } from "dayjs";
 const cx = classNames.bind(styles);
 const ReturnRespectiveHtmlElement: React.FC<{
   input: InputType;
-  control: Control | any;
+  control: Control;
   errors?: any;
   handleUpdateInput: Function;
-  setValue: any;
-  handleActiveInput: any;
-  updatedItem: any;
+  setValue: (name: string, value: unknown, config?: Object) => void;
+  handleActiveInput: Function;
+  updatedItem: InputType | undefined;
 }> = ({
   input,
   control,
@@ -35,7 +35,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
 }): React.ReactElement => {
   const handleOnChangeValue: Function = async (
     value: string,
-    inputItem: any
+    inputItem: InputType
   ) => {
     if (updatedItem?.id !== inputItem.id) {
       handleActiveInput(inputItem);
