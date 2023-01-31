@@ -144,50 +144,46 @@ const mock: MockType = {
     },
     {
       value: "number",
-      label: "number",
+      label: "Number",
     },
     {
       value: "password",
-      label: "password",
-    },
-    {
-      value: "email",
-      label: "email",
+      label: "Password",
     },
   ],
-  optionsRadioEditInput: [
-    {
-      value: "none",
-      label: "Default",
-    },
-    {
-      value: "password",
-      label: "Minimum eight characters, at least one letter and one number",
-    },
-    {
-      value: "password1",
-      label:
-        "Minimum eight characters, at least one letter, one number and one special character",
-    },
-  ],
-  optionsRadioValidateNumber: [
-    {
-      value: "none",
-      label: "Default",
-    },
-    {
-      value: "sdt",
-      label: "Format phone number vietnames",
-    },
-  ]
+  // optionsRadioEditInput: [
+  //   {
+  //     value: "none",
+  //     label: "Default",
+  //   },
+  //   {
+  //     value: "password",
+  //     label: "Minimum eight characters, at least one letter and one number",
+  //   },
+  //   {
+  //     value: "password1",
+  //     label:
+  //       "Minimum eight characters, at least one letter, one number and one special character",
+  //   },
+  // ],
+  // optionsRadioValidateNumber: [
+  //   {
+  //     value: "none",
+  //     label: "Default",
+  //   },
+  //   {
+  //     value: "sdt",
+  //     label: "Format phone number vietnames",
+  //   },
+  // ]
 };
 
 export const {
   optionsSelectEditInput,
   viewForm,
   sidebar,
-  optionsRadioEditInput,
-  optionsRadioValidateNumber,
+  // optionsRadioEditInput,
+  // optionsRadioValidateNumber,
 } = mock;
 
 export default mock;
