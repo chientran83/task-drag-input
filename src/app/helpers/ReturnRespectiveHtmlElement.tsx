@@ -22,18 +22,28 @@ const ReturnRespectiveHtmlElement: React.FC<{
   errors?: any;
   handleUpdateInput: Function;
   setValue: any;
+  handleActiveInput: any;
+  updatedItem: any;
 }> = ({
   input,
   control,
   errors,
   handleUpdateInput,
   setValue,
+  handleActiveInput,
+  updatedItem,
 }): React.ReactElement => {
-  const handleOnChangeValue: Function = async (value: string, name: string) => {
-    let updatedInput: InputType = { ...input };
-    setValue(name, value);
+  const handleOnChangeValue: Function = async (
+    value: string,
+    inputItem: any
+  ) => {
+    if (updatedItem?.id !== inputItem.id) {
+      handleActiveInput(inputItem);
+    }
+    let updatedInput: InputType = { ...inputItem };
     updatedInput.value = value;
-    handleUpdateInput(updatedInput);
+    handleUpdateInput(updatedInput, inputItem.id);
+    setValue(inputItem.name, value);
   };
 
   switch (input.type) {
@@ -54,7 +64,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           placeholder={input.placeholder}
           type={input.type}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleOnChangeValue(e.target.value, input.name)
+            handleOnChangeValue(e.target.value, input)
           }
         />
       );
@@ -70,7 +80,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           options={input.options}
           disabled={input.disabled}
           onChange={(e: RadioChangeEvent) =>
-            handleOnChangeValue(e.target.value, input.name)
+            handleOnChangeValue(e.target.value, input)
           }
         />
       );
@@ -84,7 +94,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           options={input.options}
           defaultValue={input.value}
           disabled={input.disabled}
-          onChange={(value: string) => handleOnChangeValue(value, input.name)}
+          onChange={(value: string) => handleOnChangeValue(value, input)}
         />
       );
     case "checkbox":
@@ -97,7 +107,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           value={input.value}
           disabled={input.disabled}
           onChange={(e: CheckboxChangeEvent) =>
-            handleOnChangeValue(e.target.checked, input.name)
+            handleOnChangeValue(e.target.checked, input)
           }
         />
       );
@@ -110,9 +120,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           className={cx("input__inner")}
           value={input.value}
           disabled={input.disabled}
-          onChange={(value: Dayjs | null) =>
-            handleOnChangeValue(value, input.name)
-          }
+          onChange={(value: Dayjs | null) => handleOnChangeValue(value, input)}
         />
       );
     case "file":
@@ -123,7 +131,7 @@ const ReturnRespectiveHtmlElement: React.FC<{
           control={control}
           className={cx("input__inner")}
           disabled={input.disabled}
-          onChange={(value: any) => handleOnChangeValue(value, input.name)}
+          onChange={(value: any) => handleOnChangeValue(value, input)}
         />
       );
     default:

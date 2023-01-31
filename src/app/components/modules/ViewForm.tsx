@@ -13,14 +13,14 @@ import ReturnRespectiveHtmlElement from "app/helpers/ReturnRespectiveHtmlElement
 const cx = classNames.bind(styles);
 const ViewForm: React.FC<{
   inputList: InputType[];
-  setUpdatedItem: React.Dispatch<React.SetStateAction<InputType | undefined>>;
   updatedItem: InputType | undefined;
   handleUpdateInput: Function;
+  handleActiveInput: any;
 }> = ({
   inputList,
-  setUpdatedItem,
   updatedItem,
   handleUpdateInput,
+  handleActiveInput,
 }): React.ReactElement => {
   const {
     control,
@@ -48,18 +48,6 @@ const ViewForm: React.FC<{
     resetAsyncForm();
   }, [inputList]);
 
-  const handleActiveInput = (
-    e: React.ChangeEvent<HTMLDivElement>,
-    inputItem: InputType
-  ) => {
-    e.target.getElementsByTagName("input")[0].focus();
-    setUpdatedItem(inputItem);
-  };
-
-  const handleClickEditButon = (inputItem: InputType): void => {
-    setUpdatedItem(inputItem);
-  };
-
   const onSubmit = (data: any) => {
     alert(JSON.stringify(data));
   };
@@ -86,9 +74,7 @@ const ViewForm: React.FC<{
                         className={cx("input__item", {
                           input__active: updatedItem?.id === inputItem.id,
                         })}
-                        onMouseEnter={(e: any) =>
-                          handleActiveInput(e, inputItem)
-                        }
+                        onClick={() => handleActiveInput(inputItem)}
                       >
                         <div
                           ref={provided.innerRef}
@@ -101,10 +87,12 @@ const ViewForm: React.FC<{
                             errors,
                             handleUpdateInput,
                             setValue,
+                            handleActiveInput,
+                            updatedItem,
                           })}
                           <div
                             className={cx("input__icon")}
-                            onClick={() => handleClickEditButon(inputItem)}
+                            onClick={() => handleActiveInput(inputItem)}
                           >
                             <ToolOutlined />
                           </div>
