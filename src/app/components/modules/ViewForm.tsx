@@ -29,8 +29,7 @@ const ViewForm: React.FC<{
     formState: { errors },
     reset,
   } = useForm({
-    mode: "onChange",
-    reValidateMode: "onChange",
+    mode: "onBlur"
   });
 
   const resetAsyncForm = async () => {
