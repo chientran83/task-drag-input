@@ -3,12 +3,12 @@ import Input from "app/components/commons/Input";
 import { useForm } from "react-hook-form";
 import {
   optionsSelectEditInput,
-  optionsRadioEditInput,
-  optionsRadioValidateNumber,
+  // optionsRadioEditInput,
+  // optionsRadioValidateNumber,
 } from "app/consts/mock";
 import Select from "app/components/commons/Select";
 import Checkbox from "app/components/commons/Checkbox";
-import { Form, RadioChangeEvent } from "antd";
+import { Button, Form, RadioChangeEvent } from "antd";
 import Radio from "app/components/commons/Radio";
 import { typeEditField } from "app/consts/types";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
@@ -24,9 +24,9 @@ const EditInput: FC<typeInput> = ({
 }): ReactElement => {
   const {
     control,
-    watch,
     setValue,
     formState: { errors },
+    handleSubmit
   } = useForm({
     mode: "onBlur",
   });
@@ -49,56 +49,24 @@ const EditInput: FC<typeInput> = ({
     });
   };
 
-  const handleChangeRadio = (e: RadioChangeEvent) => {
-    setValue("rules", e.target.value);
-    switch (e.target.value) {
-      case "sdt":
-        handleUpdateInput({
-          ...updatedItem,
-          rules: {
-            pattern: {
-              value:
-                /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/,
-              message: "phone number does not exist",
-            },
-          },
-        });
-        break;
-      case "password":
-        handleUpdateInput({
-          ...updatedItem,
-          rules: {
-            pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              message:
-                "Minimum eight characters, at least one letter and one number",
-            },
-          },
-        });
-        break;
-      case "password1":
-        handleUpdateInput({
-          ...updatedItem,
-          rules: {
-            pattern: {
-              value:
-                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-              message:
-                "Minimum eight characters, at least one letter, one number and one special character",
-            },
-          },
-        });
-        break;
-      case "none":
-        handleUpdateInput({
-          ...updatedItem,
-          rules: {},
-        });
-        break;
-      default:
-        break;
+  useEffect(() => {
+    if (segmented === "Validate") {
+      setValue("regex", updatedItem?.rules?.pattern?.value);
+      setValue("message", updatedItem?.rules?.pattern?.message);
     }
-  };
+  }, [updatedItem, segmented]);
+
+  const onSubmit = (data: any) => {
+    handleUpdateInput({
+      ...updatedItem,
+      rules: {
+        pattern: {
+          value: RegExp(data?.regex),
+          message: data?.message
+        }
+      }
+    });
+  }
 
   return (
     <div className="edit-input">
@@ -146,21 +114,21 @@ const EditInput: FC<typeInput> = ({
         </Form>
       ) : (
         <Form>
-          <Radio
-            name="rules"
-            options={
-              updatedItem?.type === "number"
-                ? optionsRadioValidateNumber
-                : optionsRadioEditInput
-            }
+          <Input
+            name="regex"
+            label="Regex"
+            defaultValue={updatedItem?.rules?.pattern?.value}
             control={control}
-            style={{
-              flexDirection: "column",
-              display: "flex",
-              paddingTop: "20px",
-            }}
-            onChange={(e: RadioChangeEvent) => handleChangeRadio(e)}
           />
+          <Input
+            name="message"
+            label="Error message"
+            defaultValue={updatedItem?.rules?.pattern?.message}
+            control={control}
+          />
+          <Button className="btn-submit" onClick={handleSubmit(onSubmit)}>
+            Save change
+          </Button>
         </Form>
       )}
     </div>

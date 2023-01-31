@@ -29,7 +29,7 @@ type RulesType = {
     message: string;
   };
   pattern?: {
-    value: RegExp;
+    value: string;
     message: string;
   };
   validate?: {
@@ -47,14 +47,15 @@ export type InputType = {
   label?: string;
   rules?: RulesType;
   defaultValue?: string | number;
+  mode?: boolean;
 };
 
 export type MockType = {
   sidebar: SidebarType[];
   viewForm: InputType[];
   optionsSelectEditInput: SelectOption[];
-  optionsRadioEditInput: SelectOption[];
-  optionsRadioValidateNumber: SelectOption[];
+  // optionsRadioEditInput: SelectOption[];
+  // optionsRadioValidateNumber: SelectOption[];
 };
 export type typeEditField = {
   handleUpdateInput: Function;
