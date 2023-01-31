@@ -17,11 +17,13 @@ const Home: React.FC = (): React.ReactElement => {
   const [inputList, setInputList] = React.useState<InputType[]>(mock.viewForm);
   const [updatedItem, setUpdatedItem] = React.useState<InputType>();
 
-  const handleUpdateInput: Function = (data: InputType): void => {
+  const handleActiveInput = (inputItem: InputType) => {
+    setUpdatedItem(inputItem);
+  };
+
+  const handleUpdateInput: Function = (data: InputType, inputId: any): void => {
     let inputData = [...inputList];
-    const itemIndex = inputList.findIndex(
-      (input) => input.id === updatedItem?.id
-    );
+    const itemIndex = inputList.findIndex((input) => input.id === inputId);
     inputData[itemIndex] = data;
     setUpdatedItem(data);
     setInputList(inputData);
@@ -101,9 +103,9 @@ const Home: React.FC = (): React.ReactElement => {
         <div className={cx("view-from")}>
           <ViewForm
             inputList={inputList}
-            setUpdatedItem={setUpdatedItem}
             updatedItem={updatedItem}
             handleUpdateInput={handleUpdateInput}
+            handleActiveInput={handleActiveInput}
           />
         </div>
       </DragDropContext>
