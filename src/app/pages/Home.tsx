@@ -17,11 +17,14 @@ const Home: React.FC = (): React.ReactElement => {
   const [inputList, setInputList] = React.useState<InputType[]>(mock.viewForm);
   const [updatedItem, setUpdatedItem] = React.useState<InputType>();
 
-  const handleActiveInput = (inputItem: InputType) => {
+  const handleActiveInput: Function = (inputItem: InputType): void => {
     setUpdatedItem(inputItem);
   };
 
-  const handleUpdateInput: Function = (data: InputType, inputId: any): void => {
+  const handleUpdateInput: Function = (
+    data: InputType,
+    inputId: string
+  ): void => {
     let inputData = [...inputList];
     const itemIndex = inputList.findIndex((input) => input.id === inputId);
     inputData[itemIndex] = data;

@@ -15,7 +15,7 @@ const ViewForm: React.FC<{
   inputList: InputType[];
   updatedItem: InputType | undefined;
   handleUpdateInput: Function;
-  handleActiveInput: any;
+  handleActiveInput: Function;
 }> = ({
   inputList,
   updatedItem,
@@ -29,7 +29,8 @@ const ViewForm: React.FC<{
     formState: { errors },
     reset,
   } = useForm({
-    mode: "onBlur",
+    mode: "onChange",
+    reValidateMode: "onChange",
   });
 
   const resetAsyncForm = async () => {
