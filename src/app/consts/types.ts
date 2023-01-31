@@ -7,7 +7,7 @@ export type SelectOption = {
   value: string;
   label: string;
 };
-type RulesType = {
+export type RulesType = {
   required?: {
     value: boolean;
     message: string;
@@ -38,7 +38,7 @@ type RulesType = {
 };
 export type InputType = {
   id: string;
-  name?: string;
+  name: string;
   placeholder?: string;
   type?: string;
   value?: any;

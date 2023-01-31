@@ -13,9 +13,7 @@ const EditCheckbox: FC<typeEditField> = ({
 }): ReactElement => {
   const {
     control,
-    watch,
     setValue,
-    handleSubmit,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
@@ -27,7 +25,7 @@ const EditCheckbox: FC<typeEditField> = ({
     handleUpdateInput({
       ...updatedItem,
       [name]: e.target.checked,
-    });
+    }, updatedItem?.id);
   };
 
   const handleChangeInput = (value: string, name: string) => {
@@ -36,7 +34,7 @@ const EditCheckbox: FC<typeEditField> = ({
     handleUpdateInput({
       ...updatedItem,
       [name]: value,
-    });
+    }, updatedItem?.id);
   };
 
   return (

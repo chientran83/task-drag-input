@@ -13,97 +13,104 @@ import ReturnRespectiveHtmlElement from "app/helpers/ReturnRespectiveHtmlElement
 const cx = classNames.bind(styles);
 const ViewForm: React.FC<{
   inputList: InputType[];
-  setUpdatedItem: React.Dispatch<React.SetStateAction<InputType | undefined>>;
   updatedItem: InputType | undefined;
   handleUpdateInput: Function;
+  handleActiveInput: any;
 }> = ({
   inputList,
-  setUpdatedItem,
   updatedItem,
   handleUpdateInput,
+  handleActiveInput,
 }): React.ReactElement => {
-  const {
-    control,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({
-    mode: "onBlur",
-  });
+    const {
+      control,
+      handleSubmit,
+      setValue,
+      formState: { errors },
+      reset,
+    } = useForm({
+      mode: "onBlur",
+    });
 
-  const handleActiveInput = (e: any, inputItem: any) => {
-    e.target.getElementsByTagName("input")[0].focus();
-    setUpdatedItem(inputItem);
-  };
+    const resetAsyncForm = async () => {
+      let inputs = {};
+      await inputList.forEach((item) => {
+        if (item.type === "date") {
+          inputs = { ...inputs, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
+        } else {
+          inputs = { ...inputs, [item.name]: item.value };
+        }
+      });
+      reset(inputs);
+    };
 
-  const handleClickEditButon = (inputItem: InputType): void => {
-    setUpdatedItem(inputItem);
-  };
+    React.useEffect(() => {
+      resetAsyncForm();
+    }, [inputList]);
 
-  const onSubmit = (data: any) => {
-    console.log(dayjs(data.dateOfBirth).format("YYYY/MM/DD"));
-    alert(JSON.stringify(data));
-  };
+    const onSubmit = (data: any) => {
+      alert(JSON.stringify(data));
+    };
 
-  return (
-    <div className={cx("viewForm")}>
-      <form className={cx("viewForm__form")}>
-        <Droppable droppableId="viewForm">
-          {(provided) => (
-            <div
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-              className={cx("viewForm__list")}
-            >
-              {inputList.map((inputItem, index) => {
-                return (
-                  <Draggable
-                    draggableId={inputItem.id}
-                    index={index}
-                    key={inputItem.id}
-                  >
-                    {(provided) => (
-                      <div
-                        className={cx("input__item", {
-                          input__active: updatedItem?.id === inputItem.id,
-                        })}
-                        onMouseEnter={(e: any) =>
-                          handleActiveInput(e, inputItem)
-                        }
-                      >
+    return (
+      <div className={cx("viewForm")}>
+        <form className={cx("viewForm__form")}>
+          <Droppable droppableId="viewForm">
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className={cx("viewForm__list")}
+              >
+                {inputList.map((inputItem, index) => {
+                  return (
+                    <Draggable
+                      draggableId={inputItem.id}
+                      index={index}
+                      key={inputItem.id}
+                    >
+                      {(provided) => (
                         <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          {ReturnRespectiveHtmlElement({
-                            input: inputItem,
-                            control,
-                            errors,
-                            handleUpdateInput,
-                            setValue,
+                          className={cx("input__item", {
+                            input__active: updatedItem?.id === inputItem.id,
                           })}
+                          onClick={() => handleActiveInput(inputItem)}
+                        >
                           <div
-                            className={cx("input__icon")}
-                            onClick={() => handleClickEditButon(inputItem)}
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
                           >
-                            <ToolOutlined />
+                            {ReturnRespectiveHtmlElement({
+                              input: inputItem,
+                              control,
+                              errors,
+                              handleUpdateInput,
+                              setValue,
+                              handleActiveInput,
+                              updatedItem,
+                            })}
+                            <div
+                              className={cx("input__icon")}
+                              onClick={() => handleActiveInput(inputItem)}
+                            >
+                              <ToolOutlined />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </Draggable>
-                );
-              })}
-              {provided.placeholder}
-            </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+          {!!inputList.length && (
+            <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
           )}
-        </Droppable>
-        {!!inputList.length && (
-          <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-        )}
-      </form>
-    </div>
-  );
-};
+        </form>
+      </div>
+    );
+  };
 export default ViewForm;

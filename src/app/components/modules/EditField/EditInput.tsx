@@ -1,15 +1,12 @@
-import { ChangeEvent, FC, ReactElement, useEffect } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import Input from "app/components/commons/Input";
 import { useForm } from "react-hook-form";
 import {
   optionsSelectEditInput,
-  // optionsRadioEditInput,
-  // optionsRadioValidateNumber,
 } from "app/consts/mock";
 import Select from "app/components/commons/Select";
 import Checkbox from "app/components/commons/Checkbox";
-import { Button, Form, RadioChangeEvent } from "antd";
-import Radio from "app/components/commons/Radio";
+import { Button, Form } from "antd";
 import { typeEditField } from "app/consts/types";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
@@ -26,10 +23,19 @@ const EditInput: FC<typeInput> = ({
     control,
     setValue,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    clearErrors
   } = useForm({
     mode: "onBlur",
   });
+  
+  useEffect(() => {
+    if (segmented === "Validate") {
+      setValue("regex", updatedItem?.rules?.pattern?.value);
+      setValue("message", updatedItem?.rules?.pattern?.message);
+    }
+    clearErrors("value")
+  }, [updatedItem, segmented]);
 
   const handleChangeInput = (value: string, name: string) => {
     setValue(name, value);
@@ -37,7 +43,7 @@ const EditInput: FC<typeInput> = ({
     handleUpdateInput({
       ...updatedItem,
       [name]: value,
-    });
+    }, updatedItem?.id);
   };
 
   const handleChangeCheckbox = (e: CheckboxChangeEvent, name: string) => {
@@ -46,18 +52,11 @@ const EditInput: FC<typeInput> = ({
     handleUpdateInput({
       ...updatedItem,
       [name]: e.target.checked,
-    });
+    }, updatedItem?.id);
   };
 
-  useEffect(() => {
-    if (segmented === "Validate") {
-      setValue("regex", updatedItem?.rules?.pattern?.value);
-      setValue("message", updatedItem?.rules?.pattern?.message);
-    }
-  }, [updatedItem, segmented]);
-
   const onSubmit = (data: any) => {
-    handleUpdateInput({
+    data?.regex && handleUpdateInput({
       ...updatedItem,
       rules: {
         pattern: {
@@ -65,7 +64,7 @@ const EditInput: FC<typeInput> = ({
           message: data?.message
         }
       }
-    });
+    }, updatedItem?.id);
   }
 
   return (
@@ -79,10 +78,11 @@ const EditInput: FC<typeInput> = ({
             value={updatedItem.value}
             onChange={(e) => handleChangeInput(e.target.value, "value")}
             disabled={updatedItem.disabled}
-            rules={updatedItem.rules}
+            rules={updatedItem?.rules}
             type={updatedItem.type}
             control={control}
           />
+
           <Input
             error={errors.placeholder}
             value={updatedItem.placeholder}

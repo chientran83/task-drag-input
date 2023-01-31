@@ -64,7 +64,7 @@ const EditSelect: FC<typeEditField> = ({
     });
     setOptions(coverOptions);
   };
-
+  
   const onSubmitFrom = (data: object): void => {
     const filterOptions = options.filter((item) => item.value && item.label);
 
@@ -72,7 +72,7 @@ const EditSelect: FC<typeEditField> = ({
       value: item.value,
       label: item.label,
     }));
-    handleUpdateInput({ ...updatedItem, ...data, options: coverOptions });
+    handleUpdateInput({ ...updatedItem, ...data, options: coverOptions }, updatedItem?.id);
   };
 
   return (

@@ -7,7 +7,7 @@ import { UploadOutlined } from "@ant-design/icons";
 type FileInputType = UploadProps & {
   label?: string;
   name: string;
-  control?: any;
+  control: any;
   disabled?: boolean;
 };
 
