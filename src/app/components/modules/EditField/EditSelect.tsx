@@ -35,6 +35,7 @@ const EditSelect: FC<typeEditField> = ({
     );
     setValue("label", updatedItem?.label);
     setValue("disabled", updatedItem?.disabled);
+    setValue("mode", updatedItem?.mode);
   }, [updatedItem]);
 
   const handleOptionSelect: Function = (
@@ -63,7 +64,7 @@ const EditSelect: FC<typeEditField> = ({
     });
     setOptions(coverOptions);
   };
-
+  
   const onSubmitFrom = (data: object): void => {
     const filterOptions = options.filter((item) => item.value && item.label);
 
@@ -71,7 +72,7 @@ const EditSelect: FC<typeEditField> = ({
       value: item.value,
       label: item.label,
     }));
-    handleUpdateInput({ ...updatedItem, ...data, options: coverOptions });
+    handleUpdateInput({ ...updatedItem, ...data, options: coverOptions }, updatedItem?.id);
   };
 
   return (
@@ -124,6 +125,16 @@ const EditSelect: FC<typeEditField> = ({
           placeholder="Enter label"
         />
 
+        {updatedItem?.type === "select" && <Checkbox
+          name="mode"
+          label="Multiple"
+          control={control}
+          value={watch("mode")}
+          onChange={() => {
+            setValue("mode", !watch("mode"));
+          }}
+        />}
+        <br />
         <Checkbox
           name="disabled"
           label="Disabled"

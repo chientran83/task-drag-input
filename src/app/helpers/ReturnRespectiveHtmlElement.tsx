@@ -14,6 +14,7 @@ import DateInput from "app/components/commons/DateInput";
 import FileInput from "app/components/commons/FileInput";
 
 import type { Dayjs } from "dayjs";
+import CheckBoxGroup from "app/components/commons/CheckBoxGroup";
 
 const cx = classNames.bind(styles);
 const ReturnRespectiveHtmlElement: React.FC<{
@@ -46,97 +47,99 @@ const ReturnRespectiveHtmlElement: React.FC<{
     setValue(inputItem.name, value);
   };
 
-  switch (input.type) {
-    case "number":
-    case "password":
-    case "email":
-    case "text":
-      return (
-        <Input
-          error={errors[`${input.name}`]}
-          name={`${input.name}`}
-          label={input.label}
-          value={input.value}
-          disabled={input.disabled}
-          rules={input.rules}
-          control={control}
-          className={cx("input__inner")}
-          placeholder={input.placeholder}
-          type={input.type}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleOnChangeValue(e.target.value, input)
-          }
-        />
-      );
-    case "radio":
-      return (
-        <Radio
-          label={input.label || "label"}
-          name={`${input.name}`}
-          control={control}
-          className={cx("input__inner")}
-          type={input.type}
-          value={input.value}
-          options={input.options}
-          disabled={input.disabled}
-          onChange={(e: RadioChangeEvent) =>
-            handleOnChangeValue(e.target.value, input)
-          }
-        />
-      );
-    case "select":
-      return (
-        <Select
-          label={input.label}
-          name={`${input.name}`}
-          control={control}
-          className={cx("input__inner")}
-          options={input.options}
-          defaultValue={input.value}
-          disabled={input.disabled}
-          onChange={(value: string) => handleOnChangeValue(value, input)}
-        />
-      );
-    case "checkbox":
-      return (
-        <Checkbox
-          label={`${input.label}`}
-          name={`${input.name}`}
-          control={control}
-          className={cx("input__inner")}
-          value={input.value}
-          disabled={input.disabled}
-          onChange={(e: CheckboxChangeEvent) =>
-            handleOnChangeValue(e.target.checked, input)
-          }
-        />
-      );
-    case "date":
-      return (
-        <DateInput
-          label={`${input.label}`}
-          name={`${input.name}`}
-          control={control}
-          className={cx("input__inner")}
-          value={input.value}
-          disabled={input.disabled}
-          onChange={(value: Dayjs | null) => handleOnChangeValue(value, input)}
-        />
-      );
-    case "file":
-      return (
-        <FileInput
-          label={`${input.label}`}
-          name={`${input.name}`}
-          control={control}
-          className={cx("input__inner")}
-          disabled={input.disabled}
-          onChange={(value: any) => handleOnChangeValue(value, input)}
-        />
-      );
-    default:
-      return <></>;
-  }
-};
+    switch (input.type) {
+      case "number":
+      case "password":
+      case "email":
+      case "text":
+        return (
+          <Input
+            error={errors[`${input.name}`]}
+            name={`${input.name}`}
+            label={input.label}
+            value={input.value}
+            disabled={input.disabled}
+            rules={input.rules}
+            control={control}
+            className={cx("input__inner")}
+            placeholder={input.placeholder}
+            type={input.type}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleOnChangeValue(e.target.value, input)
+            }
+          />
+        );
+      case "radio":
+        return (
+          <Radio
+            label={input.label || "label"}
+            name={`${input.name}`}
+            control={control}
+            className={cx("input__inner")}
+            type={input.type}
+            value={input.value}
+            options={input.options}
+            disabled={input.disabled}
+            onChange={(e: RadioChangeEvent) =>
+              handleOnChangeValue(e.target.value, input)
+            }
+          />
+        );
+      case "select":
+        return (
+          <Select
+            label={input.label}
+            name={`${input.name}`}
+            control={control}
+            className={cx("input__inner")}
+            options={input.options}
+            defaultValue={input.value}
+            disabled={input.disabled}
+            mode={input.mode ? "multiple" : undefined}
+            onChange={(value: string) => handleOnChangeValue(value, input)}
+          />
+        );
+      case "checkbox":
+        return (
+          <CheckBoxGroup
+            label={`${input.label}`}
+            name={`${input.name}`}
+            control={control}
+            className={cx("input__inner")}
+            defaultValue={input.value}
+            options={input.options}
+            disabled={input.disabled}
+            onChange={(checkedValue) =>
+              handleOnChangeValue(checkedValue, input)
+            }
+          />
+        );
+      case "date":
+        return (
+          <DateInput
+            label={`${input.label}`}
+            name={`${input.name}`}
+            control={control}
+            className={cx("input__inner")}
+            value={input.value}
+            disabled={input.disabled}
+            onChange={(value: Dayjs | null) => handleOnChangeValue(value, input)}
+          />
+        );
+      case "file":
+        return (
+          <FileInput
+            label={`${input.label}`}
+            name={`${input.name}`}
+            control={control}
+            className={cx("input__inner")}
+            disabled={input.disabled}
+            onChange={(value: any) => handleOnChangeValue(value, input)}
+          />
+        );
+      default:
+        return <></>;
+    }
+  };
 
 export default ReturnRespectiveHtmlElement;

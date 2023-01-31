@@ -32,21 +32,21 @@ const ViewForm: React.FC<{
     mode: "onBlur"
   });
 
-  const resetAsyncForm = async () => {
-    let inputs = {};
-    await inputList.forEach((item) => {
-      if (item.type === "date") {
-        inputs = { ...inputs, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
-      } else {
-        inputs = { ...inputs, [item.name]: item.value };
-      }
-    });
-    reset(inputs);
-  };
+    const resetAsyncForm = async () => {
+      let inputs = {};
+      await inputList.forEach((item) => {
+        if (item.type === "date") {
+          inputs = { ...inputs, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
+        } else {
+          inputs = { ...inputs, [item.name]: item.value };
+        }
+      });
+      reset(inputs);
+    };
 
-  React.useEffect(() => {
-    resetAsyncForm();
-  }, [inputList]);
+    React.useEffect(() => {
+      resetAsyncForm();
+    }, [inputList]);
 
   const onSubmit = (data: any) => {
     alert(JSON.stringify(data));

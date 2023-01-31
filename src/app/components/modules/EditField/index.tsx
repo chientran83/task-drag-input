@@ -2,8 +2,7 @@ import { FC, ReactElement, useState } from "react";
 import { Button, Segmented } from "antd";
 import EditInput from "./EditInput";
 import EditSelect from "./EditSelect";
-import EditRadioAndCheckbox from "./EditCheckbox";
-import { InputType, typeEditField } from "app/consts/types";
+import { typeEditField } from "app/consts/types";
 import EditCheckbox from "./EditCheckbox";
 
 const EditField: FC<typeEditField & { handleDeleteInput: Function }> = ({
@@ -26,22 +25,16 @@ const EditField: FC<typeEditField & { handleDeleteInput: Function }> = ({
             updatedItem={updatedItem}
           />
         );
-      case "radio":
-        return (
-          <EditSelect
-            handleUpdateInput={handleUpdateInput}
-            updatedItem={updatedItem}
-          />
-        );
       case "date":
       case "file":
-      case "checkbox":
         return (
           <EditCheckbox
             handleUpdateInput={handleUpdateInput}
             updatedItem={updatedItem}
           />
         );
+      case "radio":
+      case "checkbox":
       case "select":
         return (
           <EditSelect
@@ -57,31 +50,29 @@ const EditField: FC<typeEditField & { handleDeleteInput: Function }> = ({
   return (
     <div className="edit-field">
       {updatedItem?.type && (
-        <Segmented
-          options={
-            updatedItem?.type === "text" ||
-            updatedItem?.type === "number" ||
-            updatedItem?.type === "password"
-              ? ["Attribute", "Validate"]
-              : ["Attribute"]
-          }
-          value={segmented}
-          onChange={(value: any) => setSegmented(value)}
-        />
+        updatedItem?.type === "text" ||
+          updatedItem?.type === "number" ||
+          updatedItem?.type === "password" ?
+          <Segmented
+            options={["Attribute", "Validate"]}
+            value={segmented}
+            onChange={(value: any) => setSegmented(value)}
+          />
+          : <h3>Attribute</h3>
       )}
+
       {renderComponentActive(updatedItem?.type)}
-      {updatedItem && (
-        <Button
-          style={{
-            marginTop: "20px",
-          }}
-          type="primary"
-          danger
-          onClick={() => handleDeleteInput()}
-        >
-          Delete Element
-        </Button>
-      )}
+
+      {updatedItem && <Button
+        style={{
+          marginTop: "20px",
+        }}
+        type="primary"
+        danger
+        onClick={() => handleDeleteInput()}
+      >
+        Delete Element
+      </Button>}
     </div>
   );
 };
