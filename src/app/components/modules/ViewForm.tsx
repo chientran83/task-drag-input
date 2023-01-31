@@ -53,11 +53,16 @@ const ViewForm: React.FC<{
     alert(JSON.stringify(data));
   };
 
+  const getDraggableItemStyle = (isDragging: boolean, draggableStyle: any) => ({
+    background: isDragging && "#B2F5EA",
+    ...draggableStyle,
+  });
+
   return (
     <div className={cx("viewForm")}>
       <form className={cx("viewForm__form")}>
         <Droppable droppableId="viewForm">
-          {(provided) => (
+          {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
@@ -70,17 +75,20 @@ const ViewForm: React.FC<{
                     index={index}
                     key={inputItem.id}
                   >
-                    {(provided) => (
-                      <div
-                        className={cx("input__item", {
-                          input__active: updatedItem?.id === inputItem.id,
-                        })}
-                        onClick={() => handleActiveInput(inputItem)}
-                      >
+                    {(provided, snapshot) => {
+                      return (
                         <div
+                          className={cx("input__item", {
+                            input__active: updatedItem?.id === inputItem.id,
+                          })}
+                          onClick={() => handleActiveInput(inputItem)}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
+                          style={getDraggableItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
                         >
                           {ReturnRespectiveHtmlElement({
                             input: inputItem,
@@ -98,8 +106,8 @@ const ViewForm: React.FC<{
                             <ToolOutlined />
                           </div>
                         </div>
-                      </div>
-                    )}
+                      );
+                    }}
                   </Draggable>
                 );
               })}
