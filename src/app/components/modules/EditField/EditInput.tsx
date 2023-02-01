@@ -32,6 +32,9 @@ const EditInput: FC<typeInput> = ({
       setValue("regex", updatedItem?.rules?.pattern?.value);
       setValue("message", updatedItem?.rules?.pattern?.message);
     }
+    if (segmented === "Attribute") {
+      setValue("value", updatedItem?.value);
+    }
     clearErrors("value");
   }, [updatedItem, segmented]);
 
@@ -139,7 +142,6 @@ const EditInput: FC<typeInput> = ({
             label="Placeholder"
             onChange={(e) => handleChangeInput(e.target.value, "placeholder")}
             control={control}
-            disabled={updatedItem.disabled}
           />
           <Select
             name="type"
