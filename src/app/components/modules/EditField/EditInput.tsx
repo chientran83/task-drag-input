@@ -1,9 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from "react";
 import Input from "app/components/commons/Input";
 import { useForm } from "react-hook-form";
-import {
-  optionsSelectEditInput,
-} from "app/consts/mock";
+import { optionsSelectEditInput } from "app/consts/mock";
 import Select from "app/components/commons/Select";
 import Checkbox from "app/components/commons/Checkbox";
 import { Button, Form } from "antd";
@@ -24,48 +22,99 @@ const EditInput: FC<typeInput> = ({
     setValue,
     formState: { errors },
     handleSubmit,
-    clearErrors
+    clearErrors,
   } = useForm({
     mode: "onBlur",
   });
-  
+
   useEffect(() => {
     if (segmented === "Validate") {
       setValue("regex", updatedItem?.rules?.pattern?.value);
       setValue("message", updatedItem?.rules?.pattern?.message);
     }
-    clearErrors("value")
+    clearErrors("value");
   }, [updatedItem, segmented]);
 
   const handleChangeInput = (value: string, name: string) => {
     setValue(name, value);
 
-    handleUpdateInput({
-      ...updatedItem,
-      [name]: value,
-    }, updatedItem?.id);
+    handleUpdateInput(
+      {
+        ...updatedItem,
+        [name]: value,
+      },
+      updatedItem?.id
+    );
   };
 
   const handleChangeCheckbox = (e: CheckboxChangeEvent, name: string) => {
     setValue(name, e.target.checked);
 
-    handleUpdateInput({
-      ...updatedItem,
-      [name]: e.target.checked,
-    }, updatedItem?.id);
+    handleUpdateInput(
+      {
+        ...updatedItem,
+        [name]: e.target.checked,
+      },
+      updatedItem?.id
+    );
+  };
+
+  const handleRegex = (array: any, text: string) => {
+    if (
+      array[0] === "/" &&
+      array[array.length - 3] !== "\\" &&
+      array[array.length - 2] === "/"
+    ) {
+      const newtext = array.pop();
+      array.shift();
+      array.pop();
+      handleRegex(array, newtext);
+    }
+    if (array[0] === "/" && array[array.length - 1] === "/") {
+      array.shift();
+      array.pop();
+      handleRegex(array, text);
+    }
+    if (text) {
+      return new RegExp(array.join(""), text);
+    } else {
+      return RegExp(array.join(""));
+    }
   };
 
   const onSubmit = (data: any) => {
-    data?.regex && handleUpdateInput({
-      ...updatedItem,
-      rules: {
-        pattern: {
-          value: RegExp(data?.regex),
-          message: data?.message
-        }
-      }
-    }, updatedItem?.id);
-  }
+    let newString: RegExp | undefined;
+    if (data?.regex) {
+      newString =
+        data?.regex[0] === "/"
+          ? handleRegex(data?.regex.split(""), "")
+          : new RegExp(data?.regex);
+      handleUpdateInput(
+        {
+          ...updatedItem,
+          rules: {
+            ...updatedItem?.rules,
+            pattern: {
+              value: newString,
+              message: data?.message,
+            },
+          },
+        },
+        updatedItem?.id
+      );
+    } else {
+      handleUpdateInput(
+        {
+          ...updatedItem,
+          rules: {
+            ...updatedItem?.rules,
+            pattern: {},
+          },
+        },
+        updatedItem?.id
+      );
+    }
+  };
 
   return (
     <div className="edit-input">
