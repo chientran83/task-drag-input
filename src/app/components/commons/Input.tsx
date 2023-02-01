@@ -1,5 +1,5 @@
 import { Form, InputProps, Typography } from "antd";
-import { FC, ReactElement, useEffect, useState } from "react";
+import { FC, ReactElement } from "react";
 import { Input as InputAntd } from "antd";
 import { Control, Controller, ErrorOption } from "react-hook-form";
 
@@ -19,7 +19,7 @@ const Input: FC<InputPropsUseForm> = ({
   control,
   rules,
   ...prop
-}): ReactElement => {  
+}): ReactElement => {
   return (
     <Form.Item label={label}>
       <Controller

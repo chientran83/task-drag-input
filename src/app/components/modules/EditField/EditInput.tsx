@@ -20,6 +20,7 @@ const EditInput: FC<typeInput> = ({
   const {
     control,
     setValue,
+    trigger,
     formState: { errors },
     handleSubmit,
     clearErrors,
@@ -31,12 +32,14 @@ const EditInput: FC<typeInput> = ({
     if (segmented === "Validate") {
       setValue("regex", updatedItem?.rules?.pattern?.value);
       setValue("message", updatedItem?.rules?.pattern?.message);
-    }
-    if (segmented === "Attribute") {
+    } else {
       setValue("value", updatedItem?.value);
     }
-    clearErrors("value");
   }, [updatedItem, segmented]);
+
+  useEffect(() => {
+    trigger(["value"]);
+  }, [updatedItem?.rules, updatedItem?.value, segmented]);
 
   const handleChangeInput = (value: string, name: string) => {
     setValue(name, value);
