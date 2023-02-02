@@ -25,28 +25,34 @@ const ViewForm: React.FC<{
   const {
     control,
     handleSubmit,
+    trigger,
     setValue,
     formState: { errors },
     reset,
   } = useForm({
-    mode: "onBlur"
+    mode: "onBlur",
   });
 
-    const resetAsyncForm = async () => {
-      let inputs = {};
-      await inputList.forEach((item) => {
-        if (item.type === "date") {
-          inputs = { ...inputs, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
-        } else {
-          inputs = { ...inputs, [item.name]: item.value };
-        }
-      });
-      reset(inputs);
-    };
+  const resetAsyncForm = async () => {
+    let inputs = {};
+    await inputList.forEach((item) => {
+      if (item.type === "date") {
+        inputs = { ...inputs, [item.name]: dayjs(item.value, "YYYY/MM/DD") };
+      } else {
+        inputs = { ...inputs, [item.name]: item.value };
+      }
+    });
+    reset(inputs);
+  };
 
-    React.useEffect(() => {
-      resetAsyncForm();
-    }, [inputList]);
+  const handleChangeInputList = async () => {
+    await resetAsyncForm();
+    trigger();
+  };
+
+  React.useEffect(() => {
+    handleChangeInputList();
+  }, [inputList]);
 
   const onSubmit = (data: any) => {
     alert(JSON.stringify(data));
@@ -61,7 +67,7 @@ const ViewForm: React.FC<{
     <div className={cx("viewForm")}>
       <form className={cx("viewForm__form")}>
         <Droppable droppableId="viewForm">
-          {(provided, snapshot) => (
+          {(provided) => (
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
