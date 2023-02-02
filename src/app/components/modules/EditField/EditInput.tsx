@@ -65,7 +65,7 @@ const EditInput: FC<typeInput> = ({
     );
   };
 
-  const handleRegex = (array: any, text: string) => {
+  const handleRegex = (array: any) => {
     if (
       array[0] === "/" &&
       array[array.length - 3] !== "\\" &&
@@ -74,16 +74,11 @@ const EditInput: FC<typeInput> = ({
       const newtext = array.pop();
       array.shift();
       array.pop();
-      handleRegex(array, newtext);
+      return new RegExp(array.join(""), newtext);
     }
     if (array[0] === "/" && array[array.length - 1] === "/") {
       array.shift();
       array.pop();
-      handleRegex(array, text);
-    }
-    if (text) {
-      return new RegExp(array.join(""), text);
-    } else {
       return RegExp(array.join(""));
     }
   };
@@ -93,7 +88,7 @@ const EditInput: FC<typeInput> = ({
     if (data?.regex) {
       newString =
         data?.regex[0] === "/"
-          ? handleRegex(data?.regex.split(""), "")
+          ? handleRegex(data?.regex.split(""))
           : new RegExp(data?.regex);
       handleUpdateInput(
         {
