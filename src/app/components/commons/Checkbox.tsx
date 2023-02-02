@@ -6,7 +6,6 @@ import { Control, Controller } from "react-hook-form";
 type CheckboxPropsUseForm = CheckboxProps & {
   name: string;
   control: Control;
-  rules?: object;
   label: string;
   value?: boolean;
 };
