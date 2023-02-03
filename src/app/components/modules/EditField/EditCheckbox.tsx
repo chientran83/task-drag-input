@@ -22,19 +22,25 @@ const EditCheckbox: FC<typeEditField> = ({
   const handleChangeCheckbox = (e: CheckboxChangeEvent, name: string) => {
     setValue(name, e.target.checked);
 
-    handleUpdateInput({
-      ...updatedItem,
-      [name]: e.target.checked,
-    }, updatedItem?.id);
+    handleUpdateInput(
+      {
+        ...updatedItem,
+        [name]: e.target.checked,
+      },
+      updatedItem?.id
+    );
   };
 
   const handleChangeInput = (value: string, name: string) => {
     setValue(name, value);
 
-    handleUpdateInput({
-      ...updatedItem,
-      [name]: value,
-    }, updatedItem?.id);
+    handleUpdateInput(
+      {
+        ...updatedItem,
+        [name]: value,
+      },
+      updatedItem?.id
+    );
   };
 
   return (
@@ -47,6 +53,15 @@ const EditCheckbox: FC<typeEditField> = ({
           control={control}
           placeholder="Enter label"
           onChange={(e) => handleChangeInput(e.target.value, "label")}
+        />
+
+        <Input
+          error={errors.name}
+          value={updatedItem?.name}
+          name="name"
+          label="Name"
+          control={control}
+          onChange={(e) => handleChangeInput(e.target.value, "name")}
         />
 
         <Checkbox
