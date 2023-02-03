@@ -140,6 +140,16 @@ const EditInput: FC<typeInput> = ({
             onChange={(e) => handleChangeInput(e.target.value, "placeholder")}
             control={control}
           />
+
+          <Input
+            error={errors.name}
+            value={updatedItem.name}
+            name="name"
+            label="Name"
+            onChange={(e) => handleChangeInput(e.target.value, "name")}
+            control={control}
+          />
+
           <Select
             name="type"
             label="type"
