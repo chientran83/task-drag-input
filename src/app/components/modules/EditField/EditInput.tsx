@@ -23,7 +23,6 @@ const EditInput: FC<typeInput> = ({
     trigger,
     formState: { errors },
     handleSubmit,
-    clearErrors,
   } = useForm({
     mode: "onBlur",
   });
@@ -33,12 +32,12 @@ const EditInput: FC<typeInput> = ({
       setValue("regex", updatedItem?.rules?.pattern?.value);
       setValue("message", updatedItem?.rules?.pattern?.message);
     } else {
-      setValue("value", updatedItem?.value);
+      setValue(`${updatedItem?.name}`, updatedItem?.value);
     }
   }, [updatedItem, segmented]);
 
   useEffect(() => {
-    trigger(["value"]);
+    trigger([`${updatedItem?.name}`]);
   }, [updatedItem?.rules, updatedItem?.value, segmented]);
 
   const handleChangeInput = (value: string, name: string) => {
@@ -122,8 +121,8 @@ const EditInput: FC<typeInput> = ({
       {updatedItem && segmented === "Attribute" ? (
         <Form>
           <Input
-            error={errors.value}
-            name="value"
+            error={errors[updatedItem.name]}
+            name={updatedItem.name}
             label="Value"
             value={updatedItem.value}
             onChange={(e) => handleChangeInput(e.target.value, "value")}
