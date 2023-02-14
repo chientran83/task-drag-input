@@ -50,10 +50,10 @@ const mock: MockType = {
       placeholder: "please inter placeholder !",
       value: "chientran@gmail.com",
       rules: {
-        required : {
+        required: {
           value: true,
-          message: "Please enter email !"
-        }
+          message: "Please enter email !",
+        },
       },
     },
     // {
@@ -115,13 +115,6 @@ const mock: MockType = {
       ],
     },
     {
-      id: "4",
-      name: "confirm",
-      type: "checkbox",
-      label: "do you agree?",
-      value: true,
-    },
-    {
       id: "5",
       name: "dateOfBirth",
       type: "date",
@@ -153,10 +146,6 @@ const mock: MockType = {
   ],
 };
 
-export const {
-  optionsSelectEditInput,
-  viewForm,
-  sidebar,
-} = mock;
+export const { optionsSelectEditInput, viewForm, sidebar } = mock;
 
 export default mock;
