@@ -56,19 +56,6 @@ const mock: MockType = {
         },
       },
     },
-    // {
-    //   id: "000",
-    //   type: "text",
-    //   label: "Your email2",
-    //   placeholder: "please inter placeholder2 !",
-    //   value: "chientran2@gmail.com",
-    //   rules : {
-    // required : {
-    //   value: true,
-    //   message: "Please enter email !"
-    // }
-    //   }
-    // },
     {
       id: "1",
       name: "age",
