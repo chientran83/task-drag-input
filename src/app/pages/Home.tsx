@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import dayjs from "dayjs";
 
 import styles from "app/styles/components/Home.module.scss";
 import Sidebar from "app/components/modules/Sidebar";
@@ -76,12 +77,15 @@ const Home: React.FC = (): React.ReactElement => {
         setInputList(valueAfterReOrder);
       } else {
         //handle when drag from sibar to viewForm
-        const generateElement: InputType = {
+        let generateElement: InputType = {
           id: `${inputList.length}`,
           name: `${inputList.length}`,
           type: draggableId,
           label: "label",
         };
+        if (draggableId === "date") {
+          generateElement.value = dayjs(Date.now()).format("YYYY/MM/DD");
+        }
         const valueAfterReOrder: InputType[] = handleReOrderOtherArea(
           inputList,
           destination.index,
